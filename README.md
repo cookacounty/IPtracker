@@ -1,4 +1,4 @@
 IPtracker
 =========
 
-A Rails application to Cadence circuit IP
+Track em, find em, kill em.
