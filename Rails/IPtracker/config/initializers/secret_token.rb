@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-IPtracker::Application.config.secret_key_base = '5141117711588c094f276d129d857ad27c86737a0c27266c8520fdf8bab9a47b9e51d6fc52d59a376b3f908e63880bb79b77096f0f041dce6600ad04c8105ee6'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+IPtracker::Application.config.secret_key_base = secure_token
