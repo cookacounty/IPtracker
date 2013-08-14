@@ -22,12 +22,16 @@
   <script>
   $(function() {
  
+    // add tool tips using the "title" tag in html
+    //$( document ).tooltip();
+
     var totalArea = 0; 
     var imagePath = '<img src="./images/layouts/';
     var ipCell = [ 
 	{ category: "hall-plates",name : "hall-miniquad",file : "au1_HP_QUAD60_EPI_DB8E_4MS.jpg" ,x :250 ,y : 250, qty :0, row:0 },
 	{ category: "regs-refs",name : "bandgap" ,file : "au1_Bandgap1_b.jpg" ,x : 300 ,y : 100, qty : 0, row:0 } ,
 	{ category: "regs-refs",name : "1377-reg-por-sys" ,file : "1377_reg_sys_aa.jpg" ,x : 400 ,y : 900, qty : 0, row:0 } ,
+	{ category: "regs-refs",name : "1677-reg-por-sys" ,file : "1677_regulator_aa.jpg" ,x : 1280 ,y : 384, qty : 0, row:0 } ,
 	{ category: "signal-path",name : "1377-front-end" ,file : "1377_front_end_aa.jpg" ,x : 820 ,y : 500, qty : 0, row:0 } ,
 	{ category: "memories",name : "sram-256X8",file : "au1_SRAM_AH_256x32.jpg" ,x : 650 ,y : 650, qty : 0, row:0 } , 
 	{ category: "memories",name : "rom-4k-x-32",file : "au1_ROM_4KX32.jpg" ,x : 1034 ,y : 642, qty : 0, row:0 } , 
@@ -193,7 +197,7 @@
 			if( !$( "#img-" + j + "-" + ipCell[i].name ).attr("id") ) 
 			{
 				$( "#layout-canvas" )
-				.append( imagePath + ipCell[i].file + ' " id=img-' + j + '-' + ipCell[i].name + ' > ');
+				.append( imagePath + ipCell[i].file + ' " id=img-' + j + '-' + ipCell[i].name + ' title=" ' + ipCell[i].name + ' " > ');
 				$( "#img-" + j + "-" + ipCell[i].name ).draggable( 
 								{ containment: "parent", 
 								  grid: [ 10, 10 ],
@@ -202,6 +206,9 @@
 								  snapeMode: "outer",
 								  snapTolerance: 20
 								});
+				// mouseover event handler 
+				$( "#img-" + j + "-" + ipCell[i].name ).mouseenter( mouseenterCallback(i) );
+
 			} // close if
 		   } // close 'j' for loop
 
@@ -258,6 +265,20 @@
     	} // close return function
 
     } // close deleteCallback function
+
+    //*********************************************************************************************
+
+    function mouseenterCallback( i ){
+
+  	return function(){
+	
+	//alert( ipCell[i].file );
+	//updateCells(); // update layout canvas and item "added cells list" after any drop event
+	//updateCellArea(); // update total die area for "dropped" cells
+
+    	} // close return function
+
+    } // close mouseenterCallback function
 
     //*********************************************************************************************
 
