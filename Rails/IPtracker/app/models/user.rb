@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :microposts, dependent: :destroy
   
   before_save { email.downcase! }
   before_create :create_remember_token
@@ -20,6 +21,14 @@ class User < ActiveRecord::Base
 
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def User.search(search)
+    if search
+      where('name LIKE ?', "%#{search}%")
+    else
+      all
+    end
   end
 
   private
