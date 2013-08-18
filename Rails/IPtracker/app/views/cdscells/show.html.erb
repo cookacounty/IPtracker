@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @cdscell.name %>
+</p>
+
+<p>
+  <strong>Cdslib:</strong>
+  <%= @cdscell.cdslib_id %>
+</p>
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @cdscell.libimg.url %>
+</p>
+
+<%= link_to 'Edit', edit_cdscell_path(@cdscell) %> |
+<%= link_to 'Back', cdscells_path %> |
+<%= link_to "Delete", @cdscell, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: @cdscell.name %>

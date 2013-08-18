@@ -14,4 +14,14 @@ FactoryGirl.define do
     content "Lorem ipsum"
     user
   end
+  
+  factory :cdslib do
+    sequence(:name)  { |n| "LIB#{n}" }
+  end
+  
+  factory :cdscell do
+    sequence(:name)  { |n| "CELL#{n}" }
+    cdslib
+  end
+  
 end
