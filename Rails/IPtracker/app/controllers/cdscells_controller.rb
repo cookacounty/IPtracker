@@ -55,7 +55,7 @@ class CdscellsController < ApplicationController
   # DELETE /cdscells/1.json
   def destroy
     @cdscell.destroy
-    redirect_to root_url
+    redirect_to :back
   end
 
   private

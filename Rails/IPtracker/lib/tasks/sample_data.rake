@@ -1,11 +1,18 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
+    
+    #Read an example cds file
+    include CdsimportHelper
+    example_file_name = "amsSchTree_summary.txt"
+    read_example_cdsfile(example_file_name)
+    
     make_users
     make_microposts
     make_relationships
-    make_cdslibs
-    make_cdscells
+    
+    #make_cdslibs
+    #make_cdscells
   end
 end
 
@@ -49,6 +56,19 @@ def make_relationships
   followers.each      { |follower| follower.follow!(user) }
 end
 
+def read_example_cdsfile(example_file_name)
+  
+  filePath =  Rails.root.join('public', 'example_import', example_file_name)
+  foutPath =  Rails.root.join('public', 'example_import', example_file_name+".parsed")
+  
+  fin_read = File.read(filePath)
+  
+  cdsin_parser(fin_read,foutPath)
+  
+end
+
+
+#---DEPRICATED ----
 
 def make_cdslibs
   5.times do |n|
