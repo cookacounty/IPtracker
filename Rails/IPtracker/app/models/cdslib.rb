@@ -3,7 +3,7 @@ class Cdslib < ActiveRecord::Base
   default_scope -> { order('name DESC') }
   validates :name,  presence: true, 
                     length: { maximum: 140 },
-                    uniqueness: { case_sensitive: false }
+                    uniqueness: { case_sensitive: true }
   
   
 end

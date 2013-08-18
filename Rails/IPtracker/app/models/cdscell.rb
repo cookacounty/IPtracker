@@ -1,6 +1,6 @@
 class Cdscell < ActiveRecord::Base
   belongs_to :cdslib
-  default_scope -> { order('name DESC') }
+  default_scope -> { order('cdslib_id ASC , name ASC') }
   validates :cdslib_id, presence: true
   validates :name,  presence: true, 
                     length: { maximum: 140 }
