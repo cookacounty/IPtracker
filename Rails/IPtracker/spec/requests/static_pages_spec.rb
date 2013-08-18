@@ -46,6 +46,16 @@ describe "Static pages" do
     end
     
   end
+  
+  describe "References page" do
+    before { visit references_path }
+
+    let(:heading)    { 'References' }
+    let(:page_title) { 'References' }
+
+    it_should_behave_like "all static pages"
+  end
+
 
   describe "Help page" do
     before { visit help_path }

@@ -24,7 +24,7 @@ describe "User pages" do
       it { should have_selector('div.pagination') }
 
       it "should list each user" do
-        User.paginate(page: 1, :per_page => 20).each do |user|
+        User.paginate(page: 1, :per_page => 10).each do |user|
           expect(page).to have_selector('li', text: user.name)
         end
       end
