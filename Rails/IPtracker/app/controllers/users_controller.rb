@@ -9,13 +9,13 @@ class UsersController < ApplicationController
     #Updated with AJAX search/paginate
     #@users = User.paginate(page: params[:page])
     
-    @users = User.search(params[:search]).paginate(:per_page => 20, :page => params[:page])
+    @users = User.search(params[:search]).paginate(:per_page => 10, :page => params[:page])
 
   end
   
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = @user.microposts.paginate(:per_page => 10, page: params[:page])
   end
   
   def new
@@ -57,14 +57,14 @@ class UsersController < ApplicationController
   def following
     @title = "Following"
     @user = User.find(params[:id])
-    @users = @user.followed_users.paginate(page: params[:page])
+    @users = @user.followed_users.paginate(:per_page => 10, page: params[:page])
     render 'show_follow'
   end
 
   def followers
     @title = "Followers"
     @user = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
+    @users = @user.followers.paginate(:per_page => 10, page: params[:page])
     render 'show_follow'
   end  
 

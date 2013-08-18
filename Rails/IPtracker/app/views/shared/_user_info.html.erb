@@ -3,8 +3,14 @@
   <%= current_user.name %>
 </h1>
 <span>
-  <%= link_to "view my profile", current_user %>
+  <%= current_user.title %>
 </span>
+
 <span>
   <%= pluralize(current_user.microposts.count, "micropost") %>
 </span>
+
+<span>
+  <%= link_to "view my profile", current_user %>
+</span>
+
