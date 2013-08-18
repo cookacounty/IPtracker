@@ -1,0 +1,29 @@
+<h1>Listing cdscells</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Cdslib</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cdscells.each do |cdscell| %>
+      <tr>
+        <td><%= cdscell.name %></td>
+        <td><%= cdscell.cdslib_id %></td>
+        <td><%= link_to 'Show', cdscell %></td>
+        <td><%= link_to 'Edit', edit_cdscell_path(cdscell) %></td>
+        <td><%= link_to 'Destroy', cdscell, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cdscell', new_cdscell_path %>

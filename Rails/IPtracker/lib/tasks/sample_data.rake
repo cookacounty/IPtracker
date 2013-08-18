@@ -4,6 +4,8 @@ namespace :db do
     make_users
     make_microposts
     make_relationships
+    make_cdslibs
+    make_cdscells
   end
 end
 
@@ -46,3 +48,22 @@ def make_relationships
   followed_users.each { |followed| user.follow!(followed) }
   followers.each      { |follower| follower.follow!(user) }
 end
+
+
+def make_cdslibs
+  5.times do |n|
+    
+    fakerName = Faker::Company.name
+
+    Cdslib.create!(name: fakerName)
+  end
+end
+
+def make_cdscells
+  cdslibs = Cdslib.all(limit: 6)
+  10.times do
+    fakerName = Faker::Name.name
+    cdslibs.each { |cdslib| cdslib.cdscells.create!(name: fakerName) }
+  end
+end
+

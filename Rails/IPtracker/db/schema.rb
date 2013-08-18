@@ -11,7 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130818021755) do
+ActiveRecord::Schema.define(version: 20130818134524) do
+
+  create_table "cdscells", force: true do |t|
+    t.string   "name"
+    t.integer  "cdslib_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "xsize"
+    t.integer  "ysize"
+    t.string   "layimg_file_name"
+    t.string   "layimg_content_type"
+    t.integer  "layimg_file_size"
+    t.datetime "layimg_updated_at"
+    t.string   "string_file_name"
+    t.string   "string_content_type"
+    t.integer  "string_file_size"
+    t.datetime "string_updated_at"
+  end
+
+  add_index "cdscells", ["cdslib_id"], name: "index_cdscells_on_cdslib_id"
+
+  create_table "cdslibs", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "string_file_name"
+    t.string   "string_content_type"
+    t.integer  "string_file_size"
+    t.datetime "string_updated_at"
+  end
 
   create_table "microposts", force: true do |t|
     t.string   "content"
