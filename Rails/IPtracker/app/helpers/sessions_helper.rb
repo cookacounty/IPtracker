@@ -15,6 +15,10 @@ module SessionsHelper
     @current_user = user
   end
   
+  #def current_cdslib=(cdslib)
+  #  @current_cdslib = cdslib
+  #end
+  
   def signed_in_user
     unless signed_in?
       store_location
