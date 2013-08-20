@@ -1,10 +1,12 @@
+ require 'debugger'
+
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
     
     #Read an example cds file
     include CdsimportHelper
-    example_file_name = "amsSchTree_summary.txt"
+    example_file_name = "IPtrackerParsed.txt"
     read_example_cdsfile(example_file_name)
     
     make_users
