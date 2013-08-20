@@ -9,9 +9,19 @@
   <strong>Cdslib:</strong>
   <%= link_to @cdscell.cdslib.name, @cdscell.cdslib %>
 </p>
+
+<p>
+  <strong>Dimensions</strong>
+  x: <%= @cdscell.xsize %> y: <%= @cdscell.ysize %>
+</p>
+<p>
+  <strong>Area</strong>
+  <%= @cdscell.area.to_f / (1000.0*1000.0) %> mm^2
+</p>
 <p>
   <strong>Image:</strong>
-  <%= image_tag @cdscell.libimg.url %>
+  <%= @cdscell.layimg_file_name %>
+  <%= image_tag @cdscell.layimg_file_name %>
 </p>
 
 <%= link_to 'Edit', edit_cdscell_path(@cdscell) %> |

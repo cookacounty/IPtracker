@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130818134524) do
+ActiveRecord::Schema.define(version: 20130820001841) do
 
   create_table "cdscells", force: true do |t|
     t.string   "name"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20130818134524) do
     t.string   "string_content_type"
     t.integer  "string_file_size"
     t.datetime "string_updated_at"
+    t.integer  "area"
   end
 
   add_index "cdscells", ["cdslib_id"], name: "index_cdscells_on_cdslib_id"
