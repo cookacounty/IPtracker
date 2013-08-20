@@ -18,10 +18,10 @@ module CdsimportHelper
   
   def cdsin_parser(fin_read,fout_path)
     libRegexp = /^\S\w+/ #first char is not white space
-    cellRegexp = /^\s+\w+/ #first char is white space
+    cellRegexp = /^\s+\w+.+/ #first char is white space
     
     lineNumber = 1
-    headerLines = 3
+    headerLines = 1
     
     cdslib = nil
     
@@ -42,8 +42,12 @@ module CdsimportHelper
             fout.puts "#{prefix}LIB #{name} references #{cdslib.name+' '+ cdslib.id.to_s}"
             
           when isCell
-            name = isCell[0]
-            cdscell = cdsin_create_cell(name,cdslib)
+            lineSplit = isCell[0].split(' ')
+            name = lineSplit[0]
+            xsize = lineSplit[1]
+            ysize = lineSplit[2]
+            area  = lineSplit[3]
+            cdscell = cdsin_create_cell(cdslib,name,xsize,ysize,area)
             fout.puts "#{prefix}CELL #{name} references #{cdscell.name+' '+ cdscell.id.to_s}"
           else        
             fout.puts "#{prefix}NOTHING"
@@ -57,14 +61,25 @@ module CdsimportHelper
   end
   
   def cdsin_create_lib(name)
-    cdslib = Cdslib.find_by(name: name)
-    cdslib = Cdslib.create!(name: name) if !cdslib
+    cdslib = Cdslib.find_by_name(name)
+    
+    if cdslib
+      cdslib.touch(:updated_at)
+    else
+      cdslib = Cdslib.create!(name: name)
+    end
+      
     return cdslib
   end
   
-  def cdsin_create_cell(name,cdslib)
-    cdscell = cdslib.cdscells.find_by(name: name)
-    cdscell = cdslib.cdscells.create!(name: name) if !cdscell
+  def cdsin_create_cell(cdslib,name,xsize,ysize,area)
+    cdscell = cdslib.cdscells.find_by_name(name)
+    
+    if cdscell
+      cdscell.update!(xsize: xsize, ysize: ysize, area: area)
+    else
+      cdscell = cdslib.cdscells.create!(name: name, xsize: xsize, ysize: ysize, area: area)
+    end
     return cdscell
   end
   

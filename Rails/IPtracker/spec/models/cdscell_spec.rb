@@ -12,7 +12,8 @@ describe Cdscell do
   it { should respond_to(:cdslib_id) }
   it { should respond_to(:xsize) }
   it { should respond_to(:ysize) }
-  #it { should respond_to(:layimg) }
+  it { should respond_to(:area) }
+  it { should respond_to(:layimg) }
   
   its(:cdslib) { should eq cdslib }
   

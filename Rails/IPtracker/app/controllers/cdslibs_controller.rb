@@ -11,7 +11,7 @@ class CdslibsController < ApplicationController
   # GET /cdslibs/1.json
   def show
     @cdslib = Cdslib.find(params[:id])
-    @cdscells = @cdslib.cdscells.paginate(:per_page => 10, page: params[:page])
+    @cdscells = @cdslib.cdscells.paginate(:per_page => 20, page: params[:page])
   end
 
   # GET /cdslibs/new

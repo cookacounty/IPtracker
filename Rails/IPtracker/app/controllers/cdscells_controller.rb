@@ -68,6 +68,6 @@ class CdscellsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cdscell_params
-      params.require(:cdscell).permit(:name, :cdslib_id, :libimg)
+      params.require(:cdscell).permit(:name, :cdslib_id, :xsize, :ysize, :area, :libimg)
     end
 end
