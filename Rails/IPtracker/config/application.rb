@@ -23,6 +23,14 @@ module IPtracker
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.assets.paths << "#{Rails.root}/public/layouts"
     
+    #Windows
+    if RUBY_PLATFORM =~ /mswin/ || RUBY_PLATFORM =~ /mingw/
+      config.imageMagickPath = "#{Rails.root}/../ImageMagick/"
+    #Linux
+    else
+      config.imageMagickPath = ""
+    end
+    
     config.paperclip_defaults = {:storage => :fog, :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, :fog_directory => "", :fog_host => "localhost"}  
   end
 end

@@ -69,6 +69,14 @@ def read_example_cdsfile(example_file_name)
   
 end
 
+def make_celltracker
+  users = User.all
+  cells = Cdscell.all
+  user  = user.first
+  
+  tracked_cells = cells[1..5]
+  tracked_cells.each { |cell| user.follow!(cell) }
+end
 
 #---DEPRICATED ----
 
