@@ -9,7 +9,12 @@ namespace :db do
     example_file_name = "IPtrackerParsed.txt"
     read_example_cdsfile(example_file_name)
     
+    
+    
     make_users
+    
+    make_celltracker
+    
     make_microposts
     make_relationships
     
@@ -25,7 +30,7 @@ def make_users
                        password: "foobar",
                        password_confirmation: "foobar",
                        admin: true)
-  99.times do |n|
+  14.times do |n|
     
     fakerName = Faker::Name
     name  = fakerName.name
@@ -43,7 +48,7 @@ end
 
 def make_microposts
   users = User.all(limit: 6)
-  50.times do
+  12.times do
     content = Faker::Lorem.sentence(5)
     users.each { |user| user.microposts.create!(content: content) }
   end
@@ -52,8 +57,8 @@ end
 def make_relationships
   users = User.all
   user  = users.first
-  followed_users = users[2..50]
-  followers      = users[3..40]
+  followed_users = users[2..6]
+  followers      = users[3..7]
   followed_users.each { |followed| user.follow!(followed) }
   followers.each      { |follower| follower.follow!(user) }
 end
@@ -72,10 +77,10 @@ end
 def make_celltracker
   users = User.all
   cells = Cdscell.all
-  user  = user.first
+  user  = users.first
   
   tracked_cells = cells[1..5]
-  tracked_cells.each { |cell| user.follow!(cell) }
+  tracked_cells.each { |cell| user.track!(cell) }
 end
 
 #---DEPRICATED ----

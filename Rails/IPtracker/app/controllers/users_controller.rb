@@ -66,7 +66,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @users = @user.followers.paginate(:per_page => 10, page: params[:page])
     render 'show_follow'
-  end  
+  end
+  
+  def tracked
+    @title = "Tracked Cells"
+    @user = User.find(params[:id])
+    @tracked_cells = @user.tracked_cells.paginate(:per_page => 10, page: params[:page])
+    render 'show_tracked'
+  end
 
   private
 

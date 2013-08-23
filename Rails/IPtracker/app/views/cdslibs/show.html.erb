@@ -7,9 +7,9 @@
   
     <% if @cdslib.cdscells.any? %>
       <h3>Cells (<%= @cdslib.cdscells.count %>)</h3>
-      <ol class="cdscells">
+      <u1 class="cells">
         <%= render @cdscells %>
-      </ol>
+      </u1>
       <%= will_paginate @cdscells %>
     <% end %>
     
