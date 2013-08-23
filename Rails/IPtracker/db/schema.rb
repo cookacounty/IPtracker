@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130820001841) do
+ActiveRecord::Schema.define(version: 20130821011724) do
 
   create_table "cdscells", force: true do |t|
     t.string   "name"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20130820001841) do
     t.integer  "string_file_size"
     t.datetime "string_updated_at"
   end
+
+  create_table "celltrackers", force: true do |t|
+    t.integer  "tracker_id"
+    t.integer  "tracked_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "celltrackers", ["tracked_id"], name: "index_celltrackers_on_tracked_id"
+  add_index "celltrackers", ["tracker_id", "tracked_id"], name: "index_celltrackers_on_tracker_id_and_tracked_id", unique: true
+  add_index "celltrackers", ["tracker_id"], name: "index_celltrackers_on_tracker_id"
 
   create_table "microposts", force: true do |t|
     t.string   "content"

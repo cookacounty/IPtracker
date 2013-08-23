@@ -19,6 +19,8 @@ describe User do
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
   it { should respond_to(:microposts) }
+  
+  #RelationShips
   it { should respond_to(:feed) }
   it { should respond_to(:relationships) }
   it { should respond_to(:followed_users) }
@@ -27,7 +29,13 @@ describe User do
   it { should respond_to(:following?) }
   it { should respond_to(:follow!) }
   it { should respond_to(:unfollow!) }
-
+  
+  #Cell trackers
+  it { should respond_to(:celltrackers) }
+  it { should respond_to(:tracked_cells) }
+  it { should respond_to(:track!) }
+  it { should respond_to(:untrack!) }
+  it { should respond_to(:tracking?) }
   
   it { should be_valid }
   it { should_not be_admin }
@@ -204,6 +212,38 @@ describe User do
       it { should_not be_following(other_user) }
       its(:followed_users) { should_not include(other_user) }
     end
+    
+  end
+  
+  #Celltracker
+  describe "tracking" do
+    let(:cell) { FactoryGirl.create(:cdscell) }
+    before do
+      @user.save
+      @user.track!(cell)
+    end
+
+    it { should be_tracking(cell) }
+    its(:tracked_cells) { should include(cell) }
+
+    describe "tracked cell" do
+      subject { cell }
+      its(:trackers) { should include(@user) }
+    end
+
+    describe "and tracking" do
+      before { @user.untrack!(cell) }
+
+      it { should_not be_tracking(cell) }
+      its(:tracked_cells) { should_not include(cell) }
+    end
+        
+    #describe "and deleted" do
+    #  before{@user.destroy!}
+    #  
+    #  subject{ cell }
+    #  its(:trackers) { should_not include(@user) }
+    #end
     
   end
   
