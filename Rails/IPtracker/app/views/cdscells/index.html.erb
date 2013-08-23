@@ -14,7 +14,7 @@
   <tbody>
     <% @cdscells.each do |cdscell| %>
       <tr>
-        <td><%= cdscell.name %></td>
+        <td><%= link_to cdscell.name, cdscell %></td>
         <td><%= link_to cdscell.cdslib.name, cdscell.cdslib %></td>
         <td><%= link_to 'Show', cdscell %></td>
         <td><%= link_to 'Edit', edit_cdscell_path(cdscell) %></td>

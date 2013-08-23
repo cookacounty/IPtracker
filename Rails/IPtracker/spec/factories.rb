@@ -20,7 +20,10 @@ FactoryGirl.define do
   end
   
   factory :cdscell do
-    sequence(:name)  { |n| "CELL#{n}" }
+    sequence(:name)   { |n| "CELL#{n}" }
+    sequence(:xsize)  { |n| 20+n }
+    sequence(:ysize)  { |n| 30+n }
+    sequence(:area)   { |n| 100+n }
     cdslib
   end
   

@@ -10,6 +10,7 @@ class CdscellsController < ApplicationController
   # GET /cdscells/1
   # GET /cdscells/1.json
   def show
+    @user = current_user
   end
 
   # GET /cdscells/new

@@ -9,22 +9,38 @@ IPtracker::Application.routes.draw do
       post 'upload'
     end
   end
+  
   match '/import',  to: 'cdsimport#import',            via: 'get'
   post "cdsimport/upload"
   
-  resources :cdscells
+  resources :cdscells do
+    member do
+      get :tracking
+    end
+  end
+  
+  
+  #It's common to have resources that are logically children of other resources.
+  #Nested routes allow you to capture this relationship in your routing. 
+  #resources :cdslibs do
+  #  resources :cdscells
+  #end
+  
   resources :cdslibs
 
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers, :tracked
     end
   end
+  
+  #get 'tracked', to: 'users#tracked'
   
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
-  
+  resources :celltrackers, only: [:create, :destroy]
+
   root  'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
@@ -37,7 +53,9 @@ IPtracker::Application.routes.draw do
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
+  # CONTROLLER=users rake routes
+  
+  
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

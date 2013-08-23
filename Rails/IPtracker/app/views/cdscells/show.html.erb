@@ -1,4 +1,15 @@
-<p id="notice"><%= notice %></p>
+
+<%= link_to 'Edit', edit_cdscell_path(@cdscell) %> |
+<%= link_to 'Back', cdscells_path %> |
+<%= link_to "Delete", @cdscell, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: @cdscell.name %>
+<br><br>
+
+<div class="row">
+	<%= render 'track_form' if signed_in? %>
+</div>
+
 
 <p>
   <strong>Name:</strong>
@@ -18,14 +29,12 @@
   <strong>Area</strong>
   <%= @cdscell.area.to_f / (1000.0*1000.0) %> mm^2
 </p>
-<p>
-  <strong>Image:</strong>
-  <%= @cdscell.layimg_file_name %>
-  <%= image_tag @cdscell.layimg_file_name %>
-</p>
 
-<%= link_to 'Edit', edit_cdscell_path(@cdscell) %> |
-<%= link_to 'Back', cdscells_path %> |
-<%= link_to "Delete", @cdscell, method: :delete,
-                                     data: { confirm: "You sure?" },
-                                     title: @cdscell.name %>
+<div class="row">
+
+  <strong>Image:</strong> 
+  <%= @cdscell.layimg_file_name %>
+</div>
+<div class="row">
+  <%= image_tag @cdscell.layimg_file_name %>
+</div>

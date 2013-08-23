@@ -1,7 +1,8 @@
 <li>
   <span class="name"><%= link_to cdscell.name, cdscell %></span>
+  <span class="area"><%= sprintf("%.2f", cdscell.area/(1000.0*1000.0)) %> mm^2</span>
   <span class="timestamp">
-    Added <%= time_ago_in_words(cdscell.created_at) %> ago.
+    Imported <%= time_ago_in_words(cdscell.created_at) %> ago.
   </span>
     <%= link_to "delete", cdscell, method: :delete,
                                      data: { confirm: "You sure?" },
