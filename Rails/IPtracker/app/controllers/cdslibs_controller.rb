@@ -1,6 +1,6 @@
 class CdslibsController < ApplicationController
   before_action :set_cdslib, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /cdslibs
   # GET /cdslibs.json
   def index
@@ -62,6 +62,14 @@ class CdslibsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def self.search(search)
+    if search
+      where('name LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -73,4 +81,5 @@ class CdslibsController < ApplicationController
     def cdslib_params
       params.require(:cdslib).permit(:name)
     end
+
 end

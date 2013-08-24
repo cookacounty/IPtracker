@@ -1,0 +1,22 @@
+<% provide(:title, 'Browse') %>
+<h1>Browse</h1>
+<p>
+  Browsing cells
+</p>
+
+<%= form_tag browse_path, :method => 'get', :id => "cdslibs_search" do %>
+  <p>
+  	
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+  
+<% end %>
+
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+
+
+<div id="libraries"><%= render 'cdscells/browse' %></div>
+
+<%= will_paginate @cdscells %>

@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
     relationships.find_by(followed_id: other_user.id).destroy!
   end
 
-  def User.search(search)
+  def search(search)
     if search
       where('name LIKE ?', "%#{search}%")
     else

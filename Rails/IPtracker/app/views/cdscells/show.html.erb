@@ -1,10 +1,8 @@
 
 <%= link_to 'Edit', edit_cdscell_path(@cdscell) %> |
 <%= link_to 'Back', cdscells_path %> |
-<%= link_to "Delete", @cdscell, method: :delete,
-                                     data: { confirm: "You sure?" },
-                                     title: @cdscell.name %>
-<br><br>
+<%= link_to "Delete", @cdscell, method: :delete, data: { confirm: "You sure?" }, title: @cdscell.name %>
+
 
 <div class="row">
 	<%= render 'track_form' if signed_in? %>
