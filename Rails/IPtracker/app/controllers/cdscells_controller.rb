@@ -58,6 +58,11 @@ class CdscellsController < ApplicationController
     @cdscell.destroy
     redirect_to :back
   end
+  
+  def convert_json
+    cells = Cdscell.all
+    render :text => cells.to_json.to_s
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

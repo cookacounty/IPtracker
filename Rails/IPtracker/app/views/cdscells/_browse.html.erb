@@ -1,0 +1,15 @@
+
+<table class="pretty">
+  <tr>
+  	<th><%= sortable "cdslib", "Library Name"%></th>
+    <th><%= sortable "name", "Name"%></th>
+    <th><%= sortable "area", "Area"%></th>
+  </tr>
+  <% for cdscell in @cdscells %>
+  <tr>
+  	<td><%= cdscell.cdslib.name %></td>
+    <td><%= cdscell.name %></td>
+    <td><%= sprintf("%.2f", cdscell.area/(1000.0*1000.0)) %> </td>
+  </tr>
+  <% end %>
+</table>
