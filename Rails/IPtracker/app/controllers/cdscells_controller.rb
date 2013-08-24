@@ -60,7 +60,7 @@ class CdscellsController < ApplicationController
   end
   
   def convert_json
-    cells = Cdscell.all
+    cells = current_user.tracked_cells
     render :text => cells.to_json.to_s
   end
 
