@@ -47,6 +47,8 @@ IPtracker::Application.routes.draw do
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
+  match '/browse',   to: 'static_pages#browse',   via: 'get'
+  match '/layout',   to: 'static_pages#layout',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
   match '/references', to: 'static_pages#references', via: 'get'
   

@@ -10,6 +10,8 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery-ui-1.10.3.custom
+//= require jquery-1.9.1.
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap

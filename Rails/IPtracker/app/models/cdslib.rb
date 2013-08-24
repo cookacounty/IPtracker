@@ -5,5 +5,5 @@ class Cdslib < ActiveRecord::Base
                     length: { maximum: 140 },
                     uniqueness: { case_sensitive: true }
   
-  
+
 end
