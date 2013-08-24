@@ -24,7 +24,6 @@ module IPtracker
   
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.assets.paths << "#{Rails.root}/public/layouts"
-    config.assets.paths << "#{Rails.root}/public/javalayouts"
     
 
     #Windows
