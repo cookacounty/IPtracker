@@ -1,0 +1,319 @@
+  $(function() {
+
+    // add tool tips using the "title" tag in html
+    //$( document ).tooltip();
+
+    var totalArea = 0; 
+    
+    var ipCell = [ 
+	{ category: "hall-plates",name : "hall-miniquad",file : "au1_HP_QUAD60_EPI_DB8E_4MS.jpg" ,x :250 ,y : 250, qty :0, row:0 },
+	{ category: "regs-refs",name : "bandgap" ,file : "au1_Bandgap1_b.jpg" ,x : 300 ,y : 100, qty : 0, row:0 } ,
+	{ category: "regs-refs",name : "1377-reg-por-sys" ,file : "1377_reg_sys_aa.jpg" ,x : 400 ,y : 900, qty : 0, row:0 } ,
+	{ category: "regs-refs",name : "1677-reg-por-sys" ,file : "1677_regulator_aa.jpg" ,x : 1280 ,y : 384, qty : 0, row:0 } ,
+	{ category: "signal-path",name : "1377-front-end" ,file : "1377_front_end_aa.jpg" ,x : 820 ,y : 500, qty : 0, row:0 } ,
+	{ category: "memories",name : "sram-256X8",file : "au1_SRAM_AH_256x32.jpg" ,x : 650 ,y : 650, qty : 0, row:0 } , 
+	{ category: "memories",name : "rom-4k-x-32",file : "au1_ROM_4KX32.jpg" ,x : 1034 ,y : 642, qty : 0, row:0 } , 
+	{ category: "memories",name : "eeprom-charge-pump",file : "au1_EEprom_Charge_Pump.jpg" ,x : 580 ,y : 570, qty : 0, row:0 } , 
+	{ category: "memories",name : "eeprom-16x32",file : "au1_EEPROM_TOP_16x32_a.jpg" ,x : 976 ,y : 346, qty : 0, row:0 } 
+	] ;
+	
+	//Update the image path for these demo guys
+	var imagePath = '<img src="/assets<%= Rails.root.join('public','layouts') %>/';
+    for (var i=0; i<ipCell.length; i++)
+	{
+		ipCell[i].file = imagePath + ipCell[i].file;	
+	}	
+	
+	//Retrive cdscells in a json stream
+	var cdscells = [];
+	$.ajax({
+	  url: '/cdscell_convert_json',
+	  async: false,
+	  dataType: 'json',
+	  success: function (json) {
+	    cdscells = json;
+	    console.log(json);
+	  }
+	});
+	
+	//alert(cdscells); // has value of json.whatever
+	//alert(cdscells[0].name)
+	var img_prefix = '<img src="/assets';
+    for (var i=0; i<cdscells.length; i++)
+	{
+		cdscells[i].x = cdscells[i].xsize;
+		cdscells[i].y = cdscells[i].ysize;
+		cdscells[i].qty = 0;
+		cdscells[i].row = 0;
+		cdscells[i].category = "all-cells";
+		cdscells[i].file = img_prefix + cdscells[i].layimg_file_name;
+		ipCell.push(cdscells[i])
+	}
+	
+	
+	console.log(ipCell);
+	
+    // Cycle through the layout array and add the items to the appropriate library menus
+    // div elements are added with ipCell.name for future use
+    for (var i=0; i<ipCell.length; i++)
+	{
+		if (ipCell[i].category == "all-cells")
+		{
+		$( '#all-cells' )
+			.append( '<li id="'+ipCell[i].name+' ">' + ipCell[i].name + '</li>' );
+		}
+    	if (ipCell[i].category == "regs-refs")
+		{
+		$( '#regs-refs' )
+			.append( '<li id="'+ipCell[i].name+' ">' + ipCell[i].name + '</li>' );
+		}
+	if (ipCell[i].category == "signal-path")
+		{
+		$( '#signal-path' )
+			.append( '<li id="'+ipCell[i].name+' ">' + ipCell[i].name + '</li>' );
+		}
+	if (ipCell[i].category == "hall-plates")
+		{
+		$( '#hall-plates' )
+			.append( '<li id="'+ipCell[i].name+' ">' + ipCell[i].name + '</li>' );
+		}
+        if (ipCell[i].category == "memories")
+		{
+		$('#memories' )
+			.append( '<li id="'+ipCell[i].name+' ">' + ipCell[i].name + '</li>' );
+		}
+	}
+    
+    $( "#catalog" ).accordion();
+
+    //make catalog items draggable
+    $( "#catalog li" ).draggable({
+      appendTo: "body",
+      helper: "clone"
+    });
+
+    // let the catalog be droppable as well, accepting items from cart
+    // update: not doing this anymore!
+    /*
+      $( "#catalog li" ).droppable({
+      accept: "#cart tr",
+      activeClass: "custom-state-active",
+      drop: function( event, ui ) {
+        deleteCell( ui.draggable );
+	//alert("Item removed: " + ui.draggable.text() );
+      }
+    });
+    */
+
+    //make cart items droppable
+    $( "#cart table" ).droppable({
+      activeClass: "ui-state-default",
+      hoverClass: "ui-state-hover",
+      accept: ":not(.ui-sortable-helper)",
+      drop: addCellDropFunction
+    });
+
+    // add a separate container of die size options and/or bond pads, etc that can be dropped on canvas?
+    //$( "#layout-canvas" ).droppable();
+
+    
+
+
+
+    //*********************************************************************************************
+    function addCellDropFunction( event, ui ) {
+    
+	//$( this ).find( ".placeholder" ).remove();
+
+	
+	//Use the dropped item's name (div id didn't work?)
+	//and copy to cellList array
+
+	for (var i=0; i<ipCell.length; i++)
+	{
+	if (ipCell[i].name == ui.draggable.text() ){
+    	
+		if (ipCell[i].qty != 0)
+		{
+			//alert("Cell already added. Increment item: " + i + " by 1");
+			ipCell[i].qty += 1; //increment quantity by 1 since already added
+		}
+		else
+		{
+			//alert("quantity set to 1 for item: " + i);
+			ipCell[i].qty = 1; // new cell added so set quantity to 1, can be changed once in dropped area.
+		}
+
+		//alert("found a match! " + cellList[cellList.length - 1].name);
+		i = ipCell.length; // end for loop if match found
+
+	} // close outer if
+	
+	} // close for
+
+	updateCells(); // update layout canvas and item "added cells list" after any drop event
+	updateCellArea(); // update total die area for "dropped" cells
+	
+   
+    } // close addCellDropFunction
+    
+
+    //*********************************************************************************************    
+    /*
+    function deleteCell( $item ) {  
+    	
+
+	updateCells(); // Although not elegant, re-render "added cells list" after any drop event
+
+    } // close deleteCell
+    */
+    
+    //*********************************************************************************************
+    function updateCells() { 
+	//$( "#cart tr").remove().each; // delete all list items in added box and re-render
+	
+	for (var i=0; i<ipCell.length; i++)
+	{
+		
+		if ( (ipCell[i].qty != 0) )  // if qty is >0 add layout instances if needed
+		{
+
+	           //alert("qty is >0 for master item: " + i + " . Add a row if it does not exist");
+		   if (  ipCell[i].row == 0  ) // add a new row if qty >0 and row doesn't exist.
+		   {
+			//now update the table with the added row: cell, quantity and buttons
+			//alert('Row added for item: ' + i);
+
+			$( "<tr id=row"+i+"></tr>" )
+				.html("<td>" 
+				+ ipCell[i].name + "</td><td>Qty: </td><td id='qty" 
+				+ i + "'</td><td> ,  X: " + ipCell[i].x 
+				+ "</td><td> ,  Y: " + ipCell[i].y
+				+ "</td><td><button id='button" + i + "'>  Del</button></td> ")
+				.appendTo( "#cart table" );
+			$( "#button" + i ).addClass("del-button");
+
+			
+			// now that row has been added, set row variable to 1
+			ipCell[i].row = 1; 
+
+
+			//click handler for row button			
+			$( "#button"+ i ).click( deleteCallback( i ) ); 
+			 
+		    } // close if row exists check
+ 		   
+		    $("#qty"+i).html(ipCell[i].qty);		
+
+		   //alert("Now add a layout instance");
+
+		   // code to check if layout already exists. only add additional qty layouts
+		   for (var j=0; j<ipCell[i].qty; j++)
+			{
+
+			//use id to see if a layout exists
+			//if not, then add the layout to the canvas
+			if( !$( "#img-" + j + "-" + ipCell[i].name ).attr("id") ) 
+			{
+				$( "#layout-canvas" )
+				.append( ipCell[i].file + ' " id=img-' + j + '-' + ipCell[i].name + ' title=" ' + ipCell[i].name + ' " > ');
+				$( "#img-" + j + "-" + ipCell[i].name ).draggable( 
+								{ containment: "parent", 
+								  grid: [ 10, 10 ],
+								  opacity: 0.35,
+								  snap: true,
+								  snapeMode: "outer",
+								  snapTolerance: 20
+								});
+				// mouseover event handler 
+				$( "#img-" + j + "-" + ipCell[i].name ).mouseenter( mouseenterCallback(i) );
+
+			} // close if
+		   } // close 'j' for loop
+
+		
+	    // add code or function to update quantity cell of specific row tables
+	
+	    } // close if qty != 0
+
+	} // close 'i' for loop
+
+    } // close updateCells
+
+    //*********************************************************************************************
+    function buttonAction() {
+    	
+	//process button actions??
+
+    } // close buttonAction
+
+    //*********************************************************************************************
+
+    function deleteCallback( i ){
+
+  	return function(){
+    	//alert('you clicked button ' + i);
+	if (ipCell[i].qty > 0) 
+		{
+		//subtract qty before deleting layout since array index starts at 0, not 1
+		ipCell[i].qty = ipCell[i].qty - 1; 
+
+		//remove layout image from canvas
+		//alert("removing img-" + ipCell[i].qty + "-" + ipCell[i].name);
+		$("#img-" + ipCell[i].qty + "-" + ipCell[i].name).remove();
+
+		if (ipCell[i].qty == 0)
+				{
+				// remove table row
+				$("#row"+i).remove();
+
+				// set row=0 in ipCell array
+				ipCell[i].row=0;
+				}
+
+				else
+				{
+				// update table row to new quantity
+				$("#qty"+i).html(ipCell[i].qty);
+				}
+
+		} // close if qty >0
+		
+		updateCellArea(); // update total die area for cells in dropped area
+
+    	} // close return function
+
+    } // close deleteCallback function
+
+    //*********************************************************************************************
+
+    function mouseenterCallback( i ){
+
+  	return function(){
+	
+	//alert( ipCell[i].file );
+	//updateCells(); // update layout canvas and item "added cells list" after any drop event
+	//updateCellArea(); // update total die area for "dropped" cells
+
+    	} // close return function
+
+    } // close mouseenterCallback function
+
+    //*********************************************************************************************
+
+    function updateCellArea(){
+	totalArea = 0; // reset to 0 since entire area is recalculated
+	for (var i=0; i<ipCell.length; i++)
+	{
+		if(ipCell[i].row == 1){
+		totalArea = totalArea + (Math.round(ipCell[i].x * ipCell[i].y * ipCell[i].qty))/1e6;
+		} // close if
+	
+	} // close for loop
+	
+	$("#die-area").html("Total Cell Area: " + totalArea + " mm^2" );
+
+    } // close updateCellArea function
+    //*********************************************************************************************
+
+  }); // end ready
