@@ -18,7 +18,7 @@ IPtracker::Application.routes.draw do
       get :tracking
     end
   end
-  
+  match '/cdscell_convert_json', to: 'cdscells#convert_json', via: 'get'
   
   #It's common to have resources that are logically children of other resources.
   #Nested routes allow you to capture this relationship in your routing. 

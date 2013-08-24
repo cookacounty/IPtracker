@@ -34,6 +34,13 @@
 	{ category: "memories",name : "eeprom-charge-pump",file : "au1_EEprom_Charge_Pump.jpg" ,x : 580 ,y : 570, qty : 0, row:0 } , 
 	{ category: "memories",name : "eeprom-16x32",file : "au1_EEPROM_TOP_16x32_a.jpg" ,x : 976 ,y : 346, qty : 0, row:0 } 
 	] ;
+	
+	//Retreive all cdscells and show in console
+	$.getJSON('http://localhost:3000/cdscell_convert_json', 
+	function(data) {
+    	// you can access your data here in the "data" variable passed to this success handler
+    	console.log(data);
+	});
 
     // Cycle through the layout array and add the items to the appropriate library menus
     // div elements are added with ipCell.name for future use
