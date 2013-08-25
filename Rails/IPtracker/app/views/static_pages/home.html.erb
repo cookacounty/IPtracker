@@ -21,19 +21,17 @@
 <div class="center hero-unit">
   <h1>IPtracker</h1>
 
-  <h2>
-  	<p></p> Track em', Find em', Kill em' <p></p> 
-    <h3> <%= link_to "Manage Circuit IP", cdslibs_path %> </h3>
-    <h3> &nbsp; </h3>
-    <h3> <%= link_to "Floorplan New Designs", "#" %> </h3>
-    <h3> &nbsp; </h3>
-  </h2>
-  <%= link_to "Sign in", signin_path, class: "btn btn-large btn-primary" %> <br> <br>
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-  <p></p> Visit <a href="https://github.com/cookacounty/IPtracker">IPtracker</a> on GitHub. <p></p>
-
+		 <div class="row">Please sign in or Create an account</h2></div>
+		 <h2> <br>
+		 <div class="row">
+		 	<div class="span3 offset2"><%= link_to "Sign in", signin_path, class: "btn btn-large btn-success btn-block" %> </div>
+		 	<div class="span3 offset1"><%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary btn-block" %></div>
+		 </div>
+		 <h2> <br>
+		 <%= link_to image_tag("dog_sniff.png", alt: "IPtracker"), 'https://github.com/cookacounty/IPtracker' %>
+		 <div class="row">Visit <a href="https://github.com/cookacounty/IPtracker">IPtracker</a> on GitHub. </div>
 </div>
 
-<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+
 
 <% end %>

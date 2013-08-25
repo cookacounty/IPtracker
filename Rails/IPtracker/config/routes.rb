@@ -1,5 +1,6 @@
 IPtracker::Application.routes.draw do
   
+  resources :silicons
 
   #get "cdsimport/import"
   #post "cdsimport/upload"
@@ -17,9 +18,22 @@ IPtracker::Application.routes.draw do
     member do
       get :tracking
     end
+    collection do
+      get 'track_json'
+      get 'all_json'
+    end
   end
-  match '/cdscell_convert_json', to: 'cdscells#convert_json', via: 'get'
+  get '/cdscells/browse_show/:id', to: 'cdscells#browse_show'
   
+  resource :static_pages do
+    member do
+      get :hello
+    end
+  end
+  
+  #match '/cdscell_convert_json', to: 'cdscells#convert_json', via: 'get'
+  #match '/all_cdscells_convert_json', to: 'cdscells#all_convert_json', via: 'get'
+    
   #It's common to have resources that are logically children of other resources.
   #Nested routes allow you to capture this relationship in your routing. 
   #resources :cdslibs do
@@ -48,10 +62,12 @@ IPtracker::Application.routes.draw do
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/browse',   to: 'static_pages#browse',   via: 'get'
+  match '/inventory',   to: 'static_pages#inventory',   via: 'get'
   match '/layout',   to: 'static_pages#layout',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
   match '/references', to: 'static_pages#references', via: 'get'
   
+  match '/junk',  to: 'static_pages#junk',            via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

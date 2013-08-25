@@ -7,9 +7,9 @@ class UsersController < ApplicationController
 
   def index
     #Updated with AJAX search/paginate
-    #@users = User.paginate(page: params[:page])
+    @users = User.paginate(page: params[:page])
     
-    @users = User.search(params[:search]).paginate(:per_page => 10, :page => params[:page])
+    #@users = User.search(params[:search]).paginate(:per_page => 10, :page => params[:page])
 
   end
   

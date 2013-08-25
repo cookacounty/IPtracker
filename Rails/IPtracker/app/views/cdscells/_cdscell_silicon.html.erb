@@ -1,0 +1,18 @@
+<table class="table table-bordered">
+	
+  <thead>
+      <h3><%= link_to cdscell.name, cdscell %></h3>
+	</thead>
+	<tr> 
+		<th> Area (mm^2) </th>
+		<th> <%= sprintf("%.2f", cdscell.area/(1000.0*1000.0)) %> </th>
+	</tr>
+	<tr> 
+		<th>Updated </th>
+		<th><%= cdscell.updated_at.strftime("%d %b. %Y") %> </th>
+	</tr>
+
+</table>
+
+<h3> Referenced Silicon </h3>
+<ul><%= render cdscell.silicons %> </ul>

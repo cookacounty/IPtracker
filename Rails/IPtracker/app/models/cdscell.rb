@@ -2,8 +2,15 @@ class Cdscell < ActiveRecord::Base
 
   belongs_to :cdslib
   
+  attr_accessor :libname
+  
+  #Cell Tracker
   has_many :celltrackers, foreign_key: "tracked_id", dependent: :destroy
   has_many :trackers, through: :celltrackers, source: :tracker
+  
+  #Silicon Tracker
+  has_many :silicontrackers, foreign_key: "cdscell_id", dependent: :destroy
+  has_many :silicons, through: :silicontrackers, source: :silicon
   
   before_save :generate_image
   
@@ -18,10 +25,16 @@ class Cdscell < ActiveRecord::Base
 
   
   #has_attached_file :libimg, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => 'missing.png'
-
-
-
-
+  def used_in_silicon?(silicon)
+    silicontrackers.find_by(silicon_id: silicon.id)
+  end
+  def add_silicon!(silicon)
+    silicontrackers.create!(silicon_id: silicon.id)
+  end
+  def rm_silicon!(silicon)
+    silicontrackers.find_by(silicon_id: silicon.id).destroy!
+  end
+  
   def generate_image 
     
     scale_factor = 4

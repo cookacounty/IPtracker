@@ -1,22 +1,22 @@
 <% provide(:title, 'Browse') %>
+
 <h1>Browse</h1>
-<p>
-  Browsing cells
-</p>
 
-<%= form_tag browse_path, :method => 'get', :id => "cdslibs_search" do %>
-  <p>
-  	
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-  
-<% end %>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/redmond/jquery-ui.css" />
+<%= stylesheet_link_tag "ui.jqgrid.css" %>
 
-<%= hidden_field_tag :direction, params[:direction] %>
-<%= hidden_field_tag :sort, params[:sort] %>
+<div class ="row-fluid">
+	<div class="span8">
+		<table id="mylist"></table>
+		<div id="mypager"></div>
+	</div>
 
 
-<div id="libraries"><%= render 'cdscells/browse' %></div>
+	<div class="span4">
+		<h4> Cell Information </h4>
+		<div id="cellview_view"> </div>
+	</div>
+</div>
 
-<%= will_paginate @cdscells %>
+<%= javascript_include_tag "browse" %>
+
