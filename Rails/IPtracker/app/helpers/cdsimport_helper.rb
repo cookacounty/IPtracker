@@ -16,7 +16,11 @@ module CdsimportHelper
   end
   
   
-  def cdsin_parser(fin_read,fout_path)
+  def cdsin_parser(silicon_name,fin_read,fout_path)
+    
+    #Create or update the silicon
+    silicon = cdsin_create_silicon(silicon_name)
+    
     libRegexp = /^\S\w+/ #first char is not white space
     cellRegexp = /^\s+\w+.+/ #first char is white space
     
@@ -47,7 +51,7 @@ module CdsimportHelper
             xsize = lineSplit[1]
             ysize = lineSplit[2]
             area  = lineSplit[3]
-            cdscell = cdsin_create_cell(cdslib,name,xsize,ysize,area)
+            cdscell = cdsin_create_cell(silicon,cdslib,name,xsize,ysize,area)
             fout.puts "#{prefix}CELL #{name} references #{cdscell.name+' '+ cdscell.id.to_s}"
           else        
             fout.puts "#{prefix}NOTHING"
@@ -72,15 +76,28 @@ module CdsimportHelper
     return cdslib
   end
   
-  def cdsin_create_cell(cdslib,name,xsize,ysize,area)
+  def cdsin_create_cell(silicon,cdslib,name,xsize,ysize,area)
     cdscell = cdslib.cdscells.find_by_name(name)
     
     if cdscell
       cdscell.update!(xsize: xsize, ysize: ysize, area: area)
+      cdscell.add_silicon!(silicon)
     else
       cdscell = cdslib.cdscells.create!(name: name, xsize: xsize, ysize: ysize, area: area)
     end
     return cdscell
+  end
+  
+  def cdsin_create_silicon(name)
+    silicon = Silicon.find_by_name(name)
+    
+    if silicon
+      silicon.touch(:updated_at)
+    else
+      silicon = Silicon.create!(name: name)
+    end
+      
+    return silicon
   end
   
 end

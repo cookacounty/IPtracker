@@ -12,7 +12,7 @@ class CdscellsController < ApplicationController
   def show
     @user = current_user
   end
-
+  
   # GET /cdscells/new
   def new
     @cdscell = Cdscell.new
@@ -59,9 +59,24 @@ class CdscellsController < ApplicationController
     redirect_to :back
   end
   
-  def convert_json
+  def track_json
     cells = current_user.tracked_cells
     render :text => cells.to_json.to_s
+  end
+  
+  def all_json
+    cells = Cdscell.all
+    #cells.each { |cell| cell.area = cell.area / (1000.0*1000.0) } #did not work because data is "integer"
+    render :text => cells.to_json(:include => [:cdslib]).to_s
+  end
+
+  # GET /cdscells/browse_show/1/
+  def browse_show
+    @cdscell = Cdscell.find(params[:id])
+    silicons = @cdscell.silicons
+    respond_to do |format|
+      format.html {render :partial => 'cdscells/cdscell_silicon', :formats => [:html], :locals => { :cdscell => @cdscell, :silicons => silicons}  }
+    end
   end
 
   private

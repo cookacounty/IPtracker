@@ -1,5 +1,6 @@
 IPtracker::Application.routes.draw do
   
+  resources :silicons
 
   #get "cdsimport/import"
   #post "cdsimport/upload"
@@ -17,9 +18,22 @@ IPtracker::Application.routes.draw do
     member do
       get :tracking
     end
+    collection do
+      get 'track_json'
+      get 'all_json'
+    end
   end
-  match '/cdscell_convert_json', to: 'cdscells#convert_json', via: 'get'
+  get '/cdscells/browse_show/:id', to: 'cdscells#browse_show'
   
+  resource :static_pages do
+    member do
+      get :hello
+    end
+  end
+  
+  #match '/cdscell_convert_json', to: 'cdscells#convert_json', via: 'get'
+  #match '/all_cdscells_convert_json', to: 'cdscells#all_convert_json', via: 'get'
+    
   #It's common to have resources that are logically children of other resources.
   #Nested routes allow you to capture this relationship in your routing. 
   #resources :cdslibs do

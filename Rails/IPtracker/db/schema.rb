@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130821011724) do
+ActiveRecord::Schema.define(version: 20130824224527) do
 
   create_table "cdscells", force: true do |t|
     t.string   "name"
@@ -37,14 +37,6 @@ ActiveRecord::Schema.define(version: 20130821011724) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.string   "string_file_name"
-    t.string   "string_content_type"
-    t.integer  "string_file_size"
-    t.datetime "string_updated_at"
   end
 
   create_table "celltrackers", force: true do |t|
@@ -65,6 +57,8 @@ ActiveRecord::Schema.define(version: 20130821011724) do
     t.datetime "updated_at"
   end
 
+  add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
+
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
@@ -75,6 +69,23 @@ ActiveRecord::Schema.define(version: 20130821011724) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
+
+  create_table "silicons", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "silicontrackers", force: true do |t|
+    t.integer  "silicon_id"
+    t.integer  "cdscell_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "silicontrackers", ["cdscell_id"], name: "index_silicontrackers_on_cdscell_id"
+  add_index "silicontrackers", ["silicon_id", "cdscell_id"], name: "index_silicontrackers_on_silicon_id_and_cdscell_id", unique: true
+  add_index "silicontrackers", ["silicon_id"], name: "index_silicontrackers_on_silicon_id"
 
   create_table "users", force: true do |t|
     t.string   "name"

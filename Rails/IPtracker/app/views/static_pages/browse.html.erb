@@ -1,11 +1,20 @@
 <% provide(:title, 'Browse') %>
+
 <h1>Browse</h1>
 
-
-<%= stylesheet_link_tag "jquery-ui-1.10.3.custom.css" %>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/redmond/jquery-ui.css" />
 <%= stylesheet_link_tag "ui.jqgrid.css" %>
+
+<table id="mylist"></table>
+<div id="mypager"></div>
+
+<br>
+
+<h2> Cell Information </h2>
+<div class="span8">
+	<div id="cellview_view"> </div>
+</div>
+<br>
 
 <%= javascript_include_tag "browse" %>
 
-<table id="list2"></table>
-<div id="pager2"></div>

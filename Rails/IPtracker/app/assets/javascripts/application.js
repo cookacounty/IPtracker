@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-1.9.1
 //= require jquery-ui-1.10.3.custom
+//= require grid.locale-en.js
 //= require jquery.jqGrid.min.js
 //= require bootstrap
 //= require turbolinks

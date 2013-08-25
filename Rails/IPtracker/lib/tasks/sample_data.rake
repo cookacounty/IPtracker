@@ -69,8 +69,8 @@ def read_example_cdsfile(example_file_name)
   foutPath =  Rails.root.join('public', 'example_import', example_file_name+".parsed")
   
   fin_read = File.read(filePath)
-  
-  cdsin_parser(fin_read,foutPath)
+  dsc = "1780AA"
+  cdsin_parser(dsc,fin_read,foutPath)
   
 end
 
