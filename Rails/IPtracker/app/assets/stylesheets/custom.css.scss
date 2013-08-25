@@ -51,6 +51,24 @@ h2 {
   color: $grayLight;
 }
 
+
+h3 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 5px;
+  text-align: left;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 1.5em;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: $grayLight;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;

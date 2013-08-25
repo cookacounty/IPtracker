@@ -47,21 +47,21 @@ $(document).ready(function() {
             colModel:[                      
                     {name:'cdslib.name',index:'cdslib.name',width:225, search: true},
                     {name:'name',index:'name',width:225, search: true},
-                    {name:'area',index:'area',width:75,  formatter:'number'},
+                    {name:'area',index:'area',width:75},
                   ],
 		rowList: [10,20,50],
 		rowNum: 20,
 		rowTotal: 1000,
         loadonce : true,
 		sortname: 'name',
-        sortorder: 'desc',
+        sortorder: 'asc',
 		sortable: true,
         multiSort: true,
-        sortorder: "desc",
         ignoreCase: true,
         pager: '#mypager',
         pginput:false,
-        width: 800,
+        autowidth:true,
+        //width: 800,
         height: "auto",
         caption: "Browsing Libraries",
       
@@ -92,7 +92,11 @@ $(document).ready(function() {
                         $(elem).autocomplete({
                             source:mygetUniqueNames('name'),
                             delay:0,
-                            minLength:0
+                            minLength:0,
+                            select: function( event, ui ) {
+            					$(elem).val(ui.item.value);
+            					$(elem).focus().trigger({ type: 'keypress', charCode: 13 });
+                            }
                         });
                     }
                 }
@@ -105,7 +109,11 @@ $(document).ready(function() {
                         $(elem).autocomplete({
                             source:mygetUniqueNames('cdslib.name'),
                             delay:0,
-                            minLength:0
+                            minLength:0,
+                            select: function( event, ui ) {
+            					$(elem).val(ui.item.value);
+            					$(elem).focus().trigger({ type: 'keypress', charCode: 13 });
+                            }
                         });
                     }
                 }
@@ -116,7 +124,7 @@ $(document).ready(function() {
         }
     }
     }).jqGrid('navGrid','#mypager',
-              {edit:false, add:false, del:false, search:false, refresh:true, searchOperators : true});
+              {edit:false, add:false, del:false, search:false, autosearch:true, refresh:true, searchOperators : true});
 
 
 	//Update the view for the selected model

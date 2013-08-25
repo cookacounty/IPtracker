@@ -62,10 +62,12 @@ IPtracker::Application.routes.draw do
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/browse',   to: 'static_pages#browse',   via: 'get'
+  match '/inventory',   to: 'static_pages#inventory',   via: 'get'
   match '/layout',   to: 'static_pages#layout',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
   match '/references', to: 'static_pages#references', via: 'get'
   
+  match '/junk',  to: 'static_pages#junk',            via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

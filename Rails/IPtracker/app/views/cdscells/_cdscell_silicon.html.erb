@@ -1,11 +1,18 @@
+<table class="table table-bordered">
+	
+  <thead>
+      <h3><%= link_to cdscell.name, cdscell %></h3>
+	</thead>
+	<tr> 
+		<th> Area (mm^2) </th>
+		<th> <%= sprintf("%.2f", cdscell.area/(1000.0*1000.0)) %> </th>
+	</tr>
+	<tr> 
+		<th>Updated </th>
+		<th><%= cdscell.updated_at.strftime("%d %b. %Y") %> </th>
+	</tr>
 
-  <span class="name"><%= link_to cdscell.name, cdscell %></span>
-  <span class="area"><%= sprintf("%.2f", cdscell.area/(1000.0*1000.0)) %> mm^2</span>
-  <span class="timestamp">
-    Imported <%= time_ago_in_words(cdscell.created_at) %> ago.
-  </span>
-  <br>
-  <h2> Referenced Silicon </h2>
-<div>
-  <ul><%= render cdscell.silicons %> </ul>
-</div>
+</table>
+
+<h3> Referenced Silicon </h3>
+<ul><%= render cdscell.silicons %> </ul>

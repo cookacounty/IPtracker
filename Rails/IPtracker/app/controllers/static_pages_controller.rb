@@ -22,13 +22,19 @@ class StaticPagesController < ApplicationController
   end
 
   def browse
-      cells = Cdscell.all
-      libs = Cdslib.all
+      #cells = Cdscell.all
+      #libs = Cdslib.all
       
-      list = [cells,libs].flatten
-      sorted_list = list.sort_by{ |item| item[:sort_column]}
+      #list = [cells,libs].flatten
+      #sorted_list = list.sort_by{ |item| item[:sort_column]}
 
-      @cdscells = Cdscell.order(sort_column + ' ' + sort_direction).paginate(:per_page => 10, page: params[:page])
+      #@cdscells = Cdscell.order(sort_column + ' ' + sort_direction).paginate(:per_page => 10, page: params[:page])
+  end
+  
+  def inventory
+    @silicons = Silicon.paginate(:per_page => 10, page: params[:page])
+    @cdslibs  = Cdslib.paginate(:per_page => 10, page: params[:page])
+    @cdscells = Cdscell.paginate(:per_page => 10, page: params[:page])
   end
   
   def layout
