@@ -11,6 +11,7 @@ class CdscellsController < ApplicationController
   # GET /cdscells/1.json
   def show
     @user = current_user
+    @silicons = @cdscell.silicons.paginate(:per_page => 10, page: params[:silicons_page])
   end
   
   # GET /cdscells/new
@@ -55,8 +56,13 @@ class CdscellsController < ApplicationController
   # DELETE /cdscells/1
   # DELETE /cdscells/1.json
   def destroy
+    same_path = request.referrer == cdscell_url(@cdscell)
     @cdscell.destroy
-    redirect_to :back
+    if same_path
+      redirect_to cdscells_path
+    else
+      redirect_to :back
+    end
   end
   
   def track_json

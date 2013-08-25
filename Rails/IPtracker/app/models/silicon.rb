@@ -5,6 +5,7 @@ class Silicon < ActiveRecord::Base
   has_many :silicontrackers, foreign_key: "silicon_id", dependent: :destroy
   has_many :cdscells, through: :silicontrackers, source: :cdscell
   
+  has_many :cdslibs, :through => :cdscells, :uniq => true
   
   VALID_SILICON_REGEX = IPtracker::Application.config.silicon_regex
   validates :name,  presence: true,
