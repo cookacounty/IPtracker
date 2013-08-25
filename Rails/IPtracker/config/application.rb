@@ -35,5 +35,8 @@ module IPtracker
     end
     
     config.paperclip_defaults = {:storage => :fog, :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, :fog_directory => "", :fog_host => "localhost"}  
+  
+    #Silicon Releases must match this expression
+    config.silicon_regex = /\A\d{4}[A-z]{2}\z/
   end
 end

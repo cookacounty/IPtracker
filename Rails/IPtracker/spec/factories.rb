@@ -10,6 +10,10 @@ FactoryGirl.define do
     end
   end
 
+  factory :silicon do
+    sequence(:name)  { |n| "000#{n}AA" }
+  end
+
   factory :micropost do
     content "Lorem ipsum"
     user

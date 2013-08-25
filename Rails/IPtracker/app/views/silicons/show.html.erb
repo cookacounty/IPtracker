@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<h1> DSC: <%= @silicon.name  %> </h1>
+<h2> Updated <%= @silicon.updated_at.strftime("%d %b. %Y") %> </h2>
+<%= link_to 'Edit', edit_silicon_path(@silicon) %> |
+<%= link_to 'Back', silicons_path %>
+
+<h2> Referenced Cells </h2>
+
+<%= render @silicon.cdscells%>
