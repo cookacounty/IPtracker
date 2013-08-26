@@ -54,12 +54,12 @@ class Cdscell < ActiveRecord::Base
       FileUtils.mkdir_p(newFilePath)
     end
     
-    convertCMD = "convert -size #{xsize}x#{ysize} xc:grey #{newFile}"
+    convertCMD = "#{imageMagickPath}convert -size #{xsize}x#{ysize} xc:grey #{newFile}"
     
-    status = system(imageMagickPath+convertCMD)
+    status = system(convertCMD)
     
     if(!status)
-      error("ImageMagick convert command failed. Did you correctly define the path in application.rb? Is it installed?")
+      raise "ImageMagick convert command '#{convertCMD} ' failed. Was the ImageMagick path defined in application.rb? Is ImageMagick installed?"
     end
     
     return self

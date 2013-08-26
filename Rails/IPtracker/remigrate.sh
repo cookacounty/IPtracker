@@ -1,1 +1,5 @@
-rake db:drop && rake db:create && rake db:migrate && rake db:schema:dump && rake db:test:prepare
+bundle exec rake db:drop        && \
+bundle exec rake db:create      && \
+bundle exec rake db:migrate     && \
+bundle exec rake db:schema:dump
+
