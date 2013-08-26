@@ -8,6 +8,8 @@ class SiliconsController < ApplicationController
 
   # GET /silicons/1
   def show
+    @cdscells = @silicon.cdscells.paginate(:per_page => 10, page: params[:cdscell_page])
+    @cdslibs  = @silicon.cdslibs.paginate(:per_page => 10, page: params[:cdslib_page])
   end
 
   # GET /silicons/new
@@ -53,6 +55,6 @@ class SiliconsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def silicon_params
-      params[:silicon]
+      params.require(:silicon).permit(:name)
     end
 end

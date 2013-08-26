@@ -69,6 +69,16 @@ h4 {
   color: $grayLight;
 }
 
+h5 {
+  font-size: 2em;
+  letter-spacing: -1px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  border-top: 1px solid $grayMediumLight;
+}
+
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;

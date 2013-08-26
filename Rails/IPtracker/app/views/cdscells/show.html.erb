@@ -1,38 +1,58 @@
+<% provide(:title, @cdscell.name) %>
 
-<%= link_to 'Edit', edit_cdscell_path(@cdscell) %> |
-<%= link_to 'Back', cdscells_path %> |
-<%= link_to "Delete", @cdscell, method: :delete, data: { confirm: "You sure?" }, title: @cdscell.name %>
-
-
-<div class="row">
-	<%= render 'track_form' if signed_in? %>
+<div class = "row">
+<h1>Library: <%=@cdscell.name %></h1>
 </div>
 
+<table class="table table-bordered">
+	
+  <thead>
+      <h3>Cell Information</h3>
+	</thead>
+	<tr> 
+		<th> Cell </th>
+		<th> <%= @cdscell.name %> </th>
+	</tr>
+	<tr> 
+		<th> Library </th>
+		<th> <%= link_to @cdscell.cdslib.name, @cdscell.cdslib%> </th>
+	</tr>
+	<tr> 
+		<th> x (um) </th>
+		<th> <%= @cdscell.xsize %></th>
+	</tr>
+	<tr> 
+		<th> y (um) </th>
+		<th> <%= @cdscell.ysize %></th>
+	</tr>
+	<tr> 
+		<th> Area (mm^2) </th>
+		<th> <%= sprintf("%.2f", @cdscell.area/(1000.0*1000.0)) %> </th>
+	</tr>
+	<tr> 
+		<th>Created </th>
+		<th><%= @cdscell.created_at.strftime("%d %b. %Y") %> </th>
+	</tr>
+	<tr> 
+		<th>Updated </th>
+		<th><%= @cdscell.updated_at.strftime("%d %b. %Y") %> </th>
+	</tr>
 
-<p>
-  <strong>Name:</strong>
-  <%= @cdscell.name %>
-</p>
+</table>
 
-<p>
-  <strong>Cdslib:</strong>
-  <%= link_to @cdscell.cdslib.name, @cdscell.cdslib %>
-</p>
+<%= render partial: 'shared/view_controls', :locals =>{:subject => @cdscell,:subject_controller => "cdscells"} %>
 
-<p>
-  <strong>Dimensions</strong>
-  x: <%= @cdscell.xsize %> y: <%= @cdscell.ysize %>
-</p>
-<p>
-  <strong>Area</strong>
-  <%= @cdscell.area.to_f / (1000.0*1000.0) %> mm^2
-</p>
-
-<div class="row">
-
-  <strong>Image:</strong> 
-  <%= @cdscell.layimg_file_name %>
+<div class = "row">
+<div class = "span12">
+	<h5> Referenced Silicon </h5>
+	<ul><%= render @silicons %> </ul>
+	<%= will_paginate @silicons, :param_name => "silicons_page" %>
 </div>
+</div>
+
+<h5> Layout </h5>
+<h2><%= @cdscell.layimg_file_name %></h2>
 <div class="row">
-  <%= image_tag @cdscell.layimg_file_name %>
+	<div class="span10 offset2">
+	<%= image_tag( @cdscell.layimg_file_name,width: "80%")%></div>
 </div>
