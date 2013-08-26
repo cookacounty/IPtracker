@@ -1,0 +1,9 @@
+<li>
+  <span class="name"><%= link_to cdslib.name, cdslib %></span>
+  <span class="timestamp">
+    Imported <%= time_ago_in_words(cdslib.created_at) %> ago.
+  </span>
+    <%= link_to "delete", cdslib, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: cdslib.name %>
+</li>

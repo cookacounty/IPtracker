@@ -1,4 +1,0 @@
-<%= form_for(current_user.celltrackers.find_by(tracked_id: @cdscell),
-             html: { method: :delete }, remote: true)  do |f| %>
-  <%= f.submit "Untrack", class: "btn btn-large btn-warning btn-block" %>
-<% end %>

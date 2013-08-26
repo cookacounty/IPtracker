@@ -15,5 +15,5 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 
-/Rails/ImageMagick
-/Rails/sqlitebrowser
+./ImageMagick
+./sqlitebrowser
