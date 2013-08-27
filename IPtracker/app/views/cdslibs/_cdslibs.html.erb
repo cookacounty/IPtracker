@@ -1,0 +1,11 @@
+
+<table class="pretty">
+  <tr>
+    <th><%= sortable "name" %></th>
+  </tr>
+  <% for cdslib in @cdslibs %>
+  <tr>
+    <td><%= cdslib.name %></td>
+  </tr>
+  <% end %>
+</table>
