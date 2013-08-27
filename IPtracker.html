@@ -11,12 +11,25 @@
 
   <style>
   h1 { padding: .2em; margin: 0; }
-  #products { width: 620px;  margin-top: 2em;  }
-  #layout-header { width: 620px; margin-top: 2em;  }
-  #cart { width: 620px; margin-top: 2em; }
-  /* style the list to maximize the droppable hitarea */
-  #cart ol { margin: 0; padding: 1em 0 1em 3em; }
-  #layout-canvas { width: 600px; height: 300px; padding: 0.5em; margin-top: 2em; background-color: #FFE; border: double 5px red; }
+  #grid {
+    display: grid;
+
+    /* Two columns: the first sized to content, the second receives
+     * the remaining space, but is never smaller than the minimum 
+     * size of the board or the game controls, which occupy this 
+     * column. */
+    grid-definition-columns: auto minmax(min-content, 1fr);
+
+    /* Three rows: the first and last sized to content, the middle 
+     * row receives the remaining space, but is never smaller than 
+     * the minimum height of the board or stats areas. */
+    grid-definition-rows: auto minmax(min-content, 1fr) auto;
+  }
+  #products {  grid-column: 1; grid-row: 1;  }
+  #cart { grid-column: 2; grid-row: 1; }
+	#cart ol { margin: 0; padding: 1em 0 1em 3em; }
+  #layout-header { grid-column: 1; grid-row: 3; } 
+  #layout-canvas { grid-column: 1; grid-row: 4; width: 600px; height: 300px; padding: 0.5em; margin-top: 2em; background-color: #FFE; border: double 5px red; }
   </style>
 
   <script>
@@ -303,6 +316,8 @@
 </head>
 
 <body>
+
+<div id="grid">
  
 <div id="products">
   <h1 class="ui-widget-header">IP Library</h1>
@@ -321,9 +336,6 @@
       </ul>
   </div>
 </div>
-
-
-
  
 <div id="cart">
   <h1 class="ui-widget-header"><div id="die-area"></div></h1>
@@ -334,13 +346,19 @@
   </div>
 </div>
 
+
+
+
 <div id="layout-header">
 <h1 class="ui-widget-header">Layout Canvas: 2.4mm X 1.2mm</h1>
 </div>
 
+
+
 <div id="layout-canvas">
 </div>
 
+</div>
 
 
   
