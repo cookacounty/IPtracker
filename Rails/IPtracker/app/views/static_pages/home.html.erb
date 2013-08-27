@@ -1,18 +1,37 @@
-<!DOCTYPE html>
-<html>
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+        <%= render 'shared/stats' %>
+      </section>
+      <section>
+        <%= render 'shared/micropost_form' %>
+      </section>
+    </aside>
+    <div class="span8">
+      <h3>Micropost Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+<% else %>
   
 <div class="center hero-unit">
-  <h1>Welcome to the Sample App</h1>
+  <h1>IPtracker</h1>
 
-  <h2>
-    This is the home page for the
-    <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
-    sample application.
-  </h2>
-
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+		 <div class="row">Please sign in or Create an account</h2></div>
+		 <h2> <br>
+		 <div class="row">
+		 	<div class="span3 offset2"><%= link_to "Sign in", signin_path, class: "btn btn-large btn-success btn-block" %> </div>
+		 	<div class="span3 offset1"><%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary btn-block" %></div>
+		 </div>
+		 <h2> <br>
+		 <%= link_to image_tag("dog_sniff.png", alt: "IPtracker"), 'https://github.com/cookacounty/IPtracker' %>
+		 <div class="row">Visit <a href="https://github.com/cookacounty/IPtracker">IPtracker</a> on GitHub. </div>
 </div>
 
-<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
 
-</html>
+
+<% end %>

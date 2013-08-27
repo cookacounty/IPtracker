@@ -1,0 +1,44 @@
+<% provide(:title, @cdslib.name) %>
+
+<div class = "row">
+<h1>Library: <%=@cdslib.name %></h1>
+</div>
+
+
+<table class="table table-bordered ">
+	
+  <thead>
+      <h3>Library Information</h3>
+	</thead>
+	<tr> 
+		<th> Library </th>
+		<td> <%= @cdslib.name %> </td>
+	</tr>
+	<tr> 
+		<th>Created </th>
+		<td><%= @cdslib.created_at.strftime("%d %b. %Y") %> </td>
+	</tr>
+	<tr> 
+		<th>Updated </th>
+		<td><%= @cdslib.updated_at.strftime("%d %b. %Y") %> </td>
+	</tr>
+
+</table>
+
+<%= render partial: 'shared/view_controls', :locals =>{:subject => @cdslib,:subject_controller => "cdslibs"} %>
+
+<div class = "row">
+<div class = "span12">
+	<h5> Referenced Silicon </h5>
+	<ul><%= render @silicons %> </ul>
+	<%= will_paginate @silicons, :param_name => "silicons_page" %>
+</div>
+</div>
+
+<div class = "row">
+<div class = "span12">
+<h5> Referenced Cells </h5>
+<%= render @cdscells%>
+<%= will_paginate @cdscells, :param_name => "cdscell_page" %>
+</div>
+</div>

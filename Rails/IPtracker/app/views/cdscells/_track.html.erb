@@ -1,0 +1,4 @@
+<%= form_for(current_user.celltrackers.build(tracked_id: @cdscell.id), remote: true) do |f| %>
+  <div><%= f.hidden_field :tracked_id %></div>
+  <%= f.submit "Track", class: "btn btn-large btn-primary btn-success btn-block" %>
+<% end %>

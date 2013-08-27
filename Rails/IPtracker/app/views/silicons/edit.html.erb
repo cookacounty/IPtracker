@@ -1,0 +1,12 @@
+<h1>Edit Silicon</h1>
+
+<%= form_for(@silicon) do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <%= render 'fields', :f => f %>
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+<%= link_to 'Show', @silicon %> |
+<%= link_to 'Back', silicons_path %>

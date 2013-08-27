@@ -1,0 +1,41 @@
+<%= form_for @cdscell do |f| %>
+  <% if @cdscell.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cdscell.errors.count, "error") %> prohibited this cdscell from being saved:</h2>
+
+      <ul>
+      <% @cdscell.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :xsize %><br>
+    <%= f.text_field :xsize %>
+  </div>
+  <div class="field">
+    <%= f.label :ysize %><br>
+    <%= f.text_field :ysize %>
+  </div>
+  <div class="field">
+    <%= f.label :area %><br>
+    <%= f.text_field :area %>
+  </div>
+  <div class="field">  
+  	Image <br>
+  	<%= f.file_field :layimg %>
+  </div>
+  <div class="field">
+    <%= f.label :cdslib_id %><br>
+    <%= f.number_field :cdslib_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,39 @@
+<% provide(:title, 'Inventory') %>
+
+<h1>Inventory</h1>
+
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs" id="my_tabs">
+    <li><a href="#tab1" data-toggle="tab">Silicon</a></li>
+    <li><a href="#tab2" data-toggle="tab">Libraries</a></li>
+    <li><a href="#tab3" data-toggle="tab">Cells</a></li>
+  </ul>
+  
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab1">
+			<%= render @silicons%>
+			<%= will_paginate @silicons, :params => {:tab => "tab1"} %>
+		</div>
+		<div class="tab-pane" id="tab2">
+			<%= render @cdslibs%>
+			<%= will_paginate @cdslibs, :params => {:tab => "tab2"} %>
+		</div>
+		<div class="tab-pane" id="tab3">
+			<%= render @cdscells%>
+			<%= will_paginate @cdscells, :params => {:tab => "tab3"} %>
+		</div>
+ 
+	</div>
+</div>
+
+
+<% @tab_id = params[:tab] ? "#my_tabs a[href=" + %Q(##{params[:tab]}) + "]" : "#my_tabs a:first" %>
+
+
+
+<script>
+  $(function () {
+  	//alert('<%= @tab_id %>')
+    $('<%= @tab_id %>').tab('show');
+  })
+</script>
