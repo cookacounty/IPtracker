@@ -1,0 +1,21 @@
+1:SKIP
+2:LIB 1780 references 1780 4
+3:CELL ADC_COMP references C:/Sites/IPtracker/IPtracker/public/layouts/4_ADC_COMP.png
+4:CELL AdcDualSlope references C:/Sites/IPtracker/IPtracker/public/layouts/4_AdcDualSlope.png
+5:CELL b5sl_DffPrNm2_a references C:/Sites/IPtracker/IPtracker/public/layouts/4_b5sl_DffPrNm2_a.png
+6:CELL OtaCorePse1_c references C:/Sites/IPtracker/IPtracker/public/layouts/4_OtaCorePse1_c.png
+7:CELL OtaNm2stg2_b references C:/Sites/IPtracker/IPtracker/public/layouts/4_OtaNm2stg2_b.png
+8:CELL pad_eng_m3 references C:/Sites/IPtracker/IPtracker/public/layouts/4_pad_eng_m3.png
+9:LIB au1Cells5 references au1Cells5 5
+10:CELL INVX1H references C:/Sites/IPtracker/IPtracker/public/layouts/5_INVX1H.png
+11:LIB au1Comp references au1Comp 2
+12:CELL cgppl_lg_a references C:/Sites/IPtracker/IPtracker/public/layouts/2_cgppl_lg_a.png
+13:CELL dzln_tep_a references C:/Sites/IPtracker/IPtracker/public/layouts/2_dzln_tep_a.png
+14:CELL dzlp_tep_a references C:/Sites/IPtracker/IPtracker/public/layouts/2_dzlp_tep_a.png
+15:CELL nmoslgi_a references C:/Sites/IPtracker/IPtracker/public/layouts/2_nmoslgi_a.png
+16:CELL pmoslg_a references C:/Sites/IPtracker/IPtracker/public/layouts/2_pmoslg_a.png
+17:CELL rgp_a references C:/Sites/IPtracker/IPtracker/public/layouts/2_rgp_a.png
+18:LIB au1IP_sbu references au1IP_sbu 3
+19:CELL au1_Amux2x1_a references C:/Sites/IPtracker/IPtracker/public/layouts/3_au1_Amux2x1_a.png
+20:CELL au1_ImrrLcl3_a references C:/Sites/IPtracker/IPtracker/public/layouts/3_au1_ImrrLcl3_a.png
+21:CELL au1_Sw1_a references C:/Sites/IPtracker/IPtracker/public/layouts/3_au1_Sw1_a.png

@@ -12,13 +12,12 @@ class Cdscell < ActiveRecord::Base
   has_many :silicontrackers, foreign_key: "cdscell_id", dependent: :destroy
   has_many :silicons, through: :silicontrackers, source: :silicon
   
-  before_save :generate_image
+  #before_save :generate_image
   
   default_scope -> { order('cdslib_id ASC , area DESC') }
   validates :cdslib_id, presence: true
   validates :name,  presence: true, 
-                    length: { maximum: 140 },
-                    uniqueness: { case_sensitive: true }
+                    length: { maximum: 140 }
   validates :xsize, presence: true, numericality: { only_integer: true }                    
   validates :ysize, presence: true, numericality: { only_integer: true }                    
   validates :area, presence: true, numericality: { only_integer: true }
@@ -29,10 +28,16 @@ class Cdscell < ActiveRecord::Base
     silicontrackers.find_by(silicon_id: silicon.id)
   end
   def add_silicon!(silicon)
-    silicontrackers.create!(silicon_id: silicon.id)
+    silicons = self.silicons.find_by(name: silicon.name)
+    silicontrackers.create!(silicon_id: silicon.id) if !silicons
   end
   def rm_silicon!(silicon)
     silicontrackers.find_by(silicon_id: silicon.id).destroy!
+  end
+  
+  def update_png_location(destination_path)
+    self.layimg_file_name = destination_path
+    self.save! 
   end
   
   def generate_image 

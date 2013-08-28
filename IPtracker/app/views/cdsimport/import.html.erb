@@ -1,16 +1,12 @@
+<%= @uploadedPath %>
+
 <div class="row">
 	
 	<div class="span4">
-		
-	<%= form_for @cdsimport do |f| %>
-		<%= f.label    "ASDF"%>
-  		<%= f.file_field :picture %>
-	<% end %>
-	
 	<%= form_tag({action: :upload}, multipart: true) do %>
 		<fieldset>
 			<label>Silicon Revision (ie. 0000XX)</label>
-			<input type="text" placeholder="Silicon">
+			<%= text_field_tag(:silicon) %>
 			<%= file_field_tag 'filepath' %>
 			<button type="submit" class="btn">Submit</button>
 		</fieldset>
