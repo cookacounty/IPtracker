@@ -12,7 +12,7 @@ class CdsimportController < ApplicationController
     
     flash[:success] = "SUCESSFULLY READ FILE #{uploaded_io.original_filename}"
     
-    redirect_to import_path
+    redirect_to import_path(:upload_success=>"t")
     
   end  
   
