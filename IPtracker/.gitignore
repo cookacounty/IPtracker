@@ -29,6 +29,8 @@ capybara-*.html
 /public/system/*
 /public/uploads
 /public/layouts
+/public/IPimportLog.txt
+
 /coverage/
 /spec/tmp/*
 **.orig

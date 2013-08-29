@@ -14,3 +14,11 @@
 	</div>
 
 </div>
+
+
+<% if(params[:upload_success]) %>
+	<pre>
+    	<%= render :file => '/public/IPimportLog.txt' %>
+	</pre>
+<% end %>
+
