@@ -19,6 +19,7 @@
 	
 	//Update the image path for these demo guys
 	var imagePath = '<img src="/assets<%= Rails.root.join('public','layouts') %>/';
+	
     for (var i=0; i<ipCell.length; i++)
 	{
 		ipCell[i].file = imagePath + ipCell[i].file;	
@@ -224,7 +225,7 @@
 								  snap: true,
 								  snapeMode: "outer",
 								  snapTolerance: 20
-								});
+								}).toggle({ effect: "scale", percent: 0.25});
 				// mouseover event handler 
 				$( "#img-" + j + "-" + ipCell[i].name ).mouseenter( mouseenterCallback(i) );
 

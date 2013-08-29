@@ -18,7 +18,7 @@
 
 <% if(params[:upload_success]) %>
 	<pre>
-    	<%= render :file => '/public/IPimportLog.txt' %>
+    	<%= render :file => Settings.iptracker.import_log %>
 	</pre>
 <% end %>
 

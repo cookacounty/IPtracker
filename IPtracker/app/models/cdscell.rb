@@ -13,6 +13,7 @@ class Cdscell < ActiveRecord::Base
   has_many :silicons, through: :silicontrackers, source: :silicon
   
   #before_save :generate_image
+  after_destroy :remove_image
   
   default_scope -> { order('cdslib_id ASC , area DESC') }
   validates :cdslib_id, presence: true
@@ -40,6 +41,16 @@ class Cdscell < ActiveRecord::Base
     self.save! 
   end
   
+  #Delete the image when the cell is deleted
+  def delete_image
+    cellname = self.name
+    libid = self.cdslib.id
+    
+    imgFilePath = Rails.root.join('public','layouts','#{libid}_#{cellname}')
+    
+  end
+  
+  #Depricated, would generate an image
   def generate_image 
     
     scale_factor = 4

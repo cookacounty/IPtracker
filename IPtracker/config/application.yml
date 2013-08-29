@@ -1,0 +1,20 @@
+# config/application.yml
+defaults: &defaults
+  iptracker:
+    png_path: <%= Rails.root.join('public', 'layouts').to_s %> #Path to dump png's
+    tmp_path: <%= Rails.root.join('tmp', 'import').to_s %>     #Path to untar tmp files
+    tar_file: 'IPtracker.tar.gz'                          #Name of tar file generated in cadence
+    parsed_file: 'IPtrackerParsed.txt'                    #Log file from parsing
+    import_log: <%= Rails.root.join('public','IPimportLog.txt') %>
+    
+    silicon_regex: = /\A\d{4}[A-z]{2}\z/    #Regex for silicon names
+    
+    
+development:
+  <<: *defaults
+  
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

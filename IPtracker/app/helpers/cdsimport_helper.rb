@@ -5,24 +5,23 @@ module CdsimportHelper
   def parse_cds_file(silicon_name,uploaded_io)    
       
       
-    tempdir = IPtracker::Application.config.iptemp_path.to_s
+    tmp_path = Settings.iptracker.tmp_path
     
     #Location of the parsed cell file
-    parsed_file = tempdir+"/"+IPtracker::Application.config.ipimport_parsedfile
+    parsed_file = tmp_path+"/"+Settings.iptracker.parsed_file
     
     #Write the uploaded file to temporary path
-    temporary_file = tempdir+"/"+IPtracker::Application.config.ipimport_tarfile.to_s
+    tar_file = tmp_path+"/"+Settings.iptracker.tar_file
 
     #Generate the Images
     importer = IPimport.new
     
-    File.open(temporary_file, 'wb') do |file|
+    File.open(tar_file, 'wb') do |file|
       file.write(uploaded_io.read)
     end
           
     #Untar the tarball
-    importer.untar
-    
+    importer.untar    
 
     #Read the parsed file
     fin_read = File.open(parsed_file,"r")
@@ -38,7 +37,7 @@ module CdsimportHelper
     
     cdslib = nil
     
-    fout_path = Rails.root.join('public','IPimportLog.txt')
+    fout_path = Settings.iptracker.import_log
     
     File.open(fout_path, 'w') do |fout|
       
@@ -115,10 +114,11 @@ module CdsimportHelper
 
     if cdscell
       cdscell.update!(xsize: xsize, ysize: ysize, area: area)
-      cdscell.add_silicon!(silicon)
     else
       cdscell = cdslib.cdscells.create!(name: name, xsize: xsize, ysize: ysize, area: area)
     end
+    
+    cdscell.add_silicon!(silicon)
     
     return cdscell
   end

@@ -9,14 +9,16 @@ class IPimport
 
   #Initialize with application defaults
   def initialize
-    @tarfile = IPtracker::Application.config.ipimport_tarfile.to_s
-    @tmppath = IPtracker::Application.config.iptemp_path.to_s
-    @destination = IPtracker::Application.config.ippng_path.to_s
+    @tarfile = Settings.iptracker.tar_file
+    @tmppath = Settings.iptracker.tmp_path
+    @destination = Settings.iptracker.png_path
     
     puts tarfile
     puts tmppath
     puts destination
     
+    #Create all needed directories
+    FileUtils.mkdir_p(@tmppath) unless File.directory?(@tmppath)
     FileUtils.mkdir_p(@destination) unless File.directory?(@destination)
     
   end  

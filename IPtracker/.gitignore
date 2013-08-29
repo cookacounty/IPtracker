@@ -38,3 +38,6 @@ rerun.txt
 pickle-email-*.html
 .project
 .secret
+
+#RubyMine
+/.idea

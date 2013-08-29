@@ -12,7 +12,7 @@
     <%=  link_to 'Edit', url_for(controller: subject_controller,  action: 'edit'), class: "btn btn-info btn-large btn-block" %>
   </div>
   <div class="span2">
-  <%= link_to 'Back',url_for(controller: subject_controller,  action: 'edit') , class: "btn btn-primary btn-large btn-block" %>
+  <%= link_to_function "Back", "history.back()", class: "btn btn-primary btn-large btn-block" %>
   </div>
   <div class="span2">
     <%= link_to "Delete", subject, method: :delete, data: { confirm: "Will delete #{subject.name}. Are you sure?" }, class: "btn btn-danger btn-large btn-block" %>

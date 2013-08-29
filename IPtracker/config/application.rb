@@ -27,18 +27,15 @@ module IPtracker
     
 
     #Windows
-    if RUBY_PLATFORM =~ /mswin/ || RUBY_PLATFORM =~ /mingw/
-      config.imageMagickPath = "#{Rails.root}/../ImageMagick/"
+    #if RUBY_PLATFORM =~ /mswin/ || RUBY_PLATFORM =~ /mingw/
+    #  config.imageMagickPath = "#{Rails.root}/../ImageMagick/"
     #Linux
-    else
-      config.imageMagickPath = ""
-    end
+    #else
+    #  config.imageMagickPath = ""
+    #end
     
     #Temporary path for conversions
-    config.iptemp_path = Rails.root.join('tmp', 'import')
-    config.ippng_path = Rails.root.join('public', 'layouts')
-    config.ipimport_tarfile = 'IPtracker.tar.gz'
-    config.ipimport_parsedfile = 'IPtrackerParsed.txt'
+    
     
     config.paperclip_defaults = {:storage => :fog, :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, :fog_directory => "", :fog_host => "localhost"}  
   
