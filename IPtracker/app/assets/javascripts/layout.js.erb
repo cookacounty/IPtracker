@@ -19,7 +19,6 @@
 	
 	//Update the image path for these demo guys
 	var imagePath = '<img src="/assets<%= Rails.root.join('public','layouts') %>/';
-	
     for (var i=0; i<ipCell.length; i++)
 	{
 		ipCell[i].file = imagePath + ipCell[i].file;	
@@ -47,7 +46,7 @@
 		cdscells[i].qty = 0;
 		cdscells[i].row = 0;
 		cdscells[i].category = "all-cells";
-		cdscells[i].file = img_prefix + cdscells[i].layimg_file_name;
+		cdscells[i].file = img_prefix + cdscells[i].layimg_file_name.split('/').pop(); //Get the actual image location on server
 		ipCell.push(cdscells[i])
 	}
 	
