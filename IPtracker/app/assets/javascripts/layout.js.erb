@@ -46,7 +46,7 @@
 		cdscells[i].qty = 0;
 		cdscells[i].row = 0;
 		cdscells[i].category = "all-cells";
-		cdscells[i].file = img_prefix + cdscells[i].layimg_file_name;
+		cdscells[i].file = img_prefix + cdscells[i].layimg_file_name.split('/').pop(); //
 		ipCell.push(cdscells[i])
 	}
 	

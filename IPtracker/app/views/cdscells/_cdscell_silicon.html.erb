@@ -32,11 +32,13 @@
 
 </table>
 
+<%= render 'cdscells/track_form' %>
+
 <h3> Referenced Silicon </h3>
 <ul><%= render cdscell.silicons %> </ul>
 
 <div class="row">
 	<div class="span10 offset1">
-<%= image_tag( cdscell.layimg_file_name,width: "80%")%></div>
+<%= image_tag( File.basename(cdscell.layimg_file_name),width: "80%")%></div>
 </row>
 
