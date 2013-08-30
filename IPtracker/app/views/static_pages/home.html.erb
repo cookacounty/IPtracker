@@ -8,11 +8,11 @@
         <%= render 'shared/stats' %>
       </section>
       <section>
-        <%= render 'shared/micropost_form' %>
+        <%= render 'shared/micropost_form'  if nil %>
       </section>
     </aside>
     <div class="span8">
-      <h3>Micropost Feed</h3>
+      <h3>Library Import Feed</h3>
       <%= render 'shared/feed' %>
     </div>
   </div>

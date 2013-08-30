@@ -3,6 +3,7 @@ class Cdscell < ActiveRecord::Base
   belongs_to :cdslib
   
   attr_accessor :libname
+  attr_accessor :imgpath
   
   #Cell Tracker
   has_many :celltrackers, foreign_key: "tracked_id", dependent: :destroy
@@ -39,6 +40,10 @@ class Cdscell < ActiveRecord::Base
   def update_png_location(destination_path)
     self.layimg_file_name = destination_path
     self.save! 
+  end
+  
+  def image_name
+    File.basename(self.layimg_file_name)
   end
   
   #Delete the image when the cell is deleted

@@ -2,6 +2,24 @@ require 'IPimport'
 
 module CdsimportHelper
   
+  def validate_file(uploaded_io)
+    
+    if uploaded_io
+      #Only allow the specially named file
+      valid_file = File.basename(uploaded_io.original_filename) == Settings.iptracker.tar_file
+    else
+      valid_file = nil
+    end
+    
+    return valid_file
+    
+  end
+  
+  def build_micropost(silicon)
+        @micropost = current_user.microposts.build({content: "Imported libraries for dsc #{silicon}"})
+        @micropost.save!
+  end
+  
   def parse_cds_file(silicon_name,uploaded_io)    
       
       

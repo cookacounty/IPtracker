@@ -7,6 +7,7 @@
     <li><a href="#tab1" data-toggle="tab">Silicon</a></li>
     <li><a href="#tab2" data-toggle="tab">Libraries</a></li>
     <li><a href="#tab3" data-toggle="tab">Cells</a></li>
+    <li><a href="#tab4" data-toggle="tab">Tracked Cells</a></li>
   </ul>
   
 	<div class="tab-content">
@@ -22,7 +23,10 @@
 			<%= render @cdscells%>
 			<%= will_paginate @cdscells, :params => {:tab => "tab3"} %>
 		</div>
- 
+		<div class="tab-pane" id="tab4">
+			<%= render @tracked_cells%>
+			<%= will_paginate @tracked_cells, :params => {:tab => "tab4"} %>
+		</div>
 	</div>
 </div>
 

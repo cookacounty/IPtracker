@@ -4,15 +4,17 @@ IPtracker::Application.routes.draw do
 
   #get "cdsimport/import"
   #post "cdsimport/upload"
-  resources :cdsimport do
-    member do
-      get 'import'
-      post 'upload'
-    end
-  end
+  #resources :cdsimport do
+  #  member do
+  #    get 'import'
+  #    post 'upload'
+  #  end
+  #end
   
   match '/import',  to: 'cdsimport#import',            via: 'get'
   post "cdsimport/upload"
+  match '/cdsimport/upload',  to: 'cdsimport#import',  via: 'get'
+
   
   resources :cdscells do
     member do

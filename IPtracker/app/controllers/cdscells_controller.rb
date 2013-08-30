@@ -66,8 +66,17 @@ class CdscellsController < ApplicationController
   end
   
   def track_json
+    
     cells = current_user.tracked_cells
-    render :text => cells.to_json.to_s
+    
+    #Pass the image url
+    cells.each { |cell| 
+        path = ActionController::Base.helpers.asset_path(cell.image_name) #asset_path not avaible in controller
+        cell.imgpath = path 
+    } 
+    
+    #Not that the imgpath attribute had to be included in the methods
+    render :text => cells.to_json(:methods => [:imgpath]).to_s
   end
   
   def all_json

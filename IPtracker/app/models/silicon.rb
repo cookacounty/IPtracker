@@ -9,7 +9,7 @@ class Silicon < ActiveRecord::Base
   
   VALID_SILICON_REGEX = IPtracker::Application.config.silicon_regex
   validates :name,  presence: true,
-                    format: { with: VALID_SILICON_REGEX },
+                    format: { with: VALID_SILICON_REGEX, message: 'is not a valid Silicon Name'},
                     uniqueness: { case_sensitive: false }
   before_save { name.upcase! }
                     

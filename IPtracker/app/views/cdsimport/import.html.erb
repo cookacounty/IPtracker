@@ -1,5 +1,16 @@
 <%= @uploadedPath %>
+<div class="row">
+	<% if @form_errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@form_errors.count, "error") %> prohibited the file upload</h2>
 
+      <ul>
+      <% @form_errors.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+    <% end %>
 <div class="row">
 	
 	<div class="span4">

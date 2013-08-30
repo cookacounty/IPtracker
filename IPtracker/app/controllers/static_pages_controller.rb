@@ -6,6 +6,7 @@ class StaticPagesController < ApplicationController
     if signed_in?
       @micropost  = current_user.microposts.build
       @feed_items = current_user.feed.paginate(:per_page => 10, page: params[:page])
+      #@feed_items = Micropost.all.paginate(:per_page => 10, page: params[:page])
     end
   end
   
@@ -35,6 +36,7 @@ class StaticPagesController < ApplicationController
     @silicons = Silicon.paginate(:per_page => 10, page: params[:page])
     @cdslibs  = Cdslib.paginate(:per_page => 10, page: params[:page])
     @cdscells = Cdscell.paginate(:per_page => 10, page: params[:page])
+    @tracked_cells = current_user.tracked_cells.paginate(:per_page => 10, page: params[:page])
   end
   
   def layout

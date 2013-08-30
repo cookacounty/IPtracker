@@ -38,7 +38,7 @@
 	
 	//alert(cdscells); // has value of json.whatever
 	//alert(cdscells[0].name)
-	var img_prefix = '<img src="/assets';
+	var img_prefix = '<img src="';
     for (var i=0; i<cdscells.length; i++)
 	{
 		cdscells[i].x = cdscells[i].xsize;
@@ -46,7 +46,7 @@
 		cdscells[i].qty = 0;
 		cdscells[i].row = 0;
 		cdscells[i].category = "all-cells";
-		cdscells[i].file = img_prefix + cdscells[i].layimg_file_name.split('/').pop(); //Get the actual image location on server
+		cdscells[i].file = img_prefix + cdscells[i].imgpath; //Get the actual image location on server
 		ipCell.push(cdscells[i])
 	}
 	
@@ -217,16 +217,20 @@
 			{
 				$( "#layout-canvas" )
 				.append( ipCell[i].file + ' " id=img-' + j + '-' + ipCell[i].name + ' title=" ' + ipCell[i].name + ' " > ');
-				$( "#img-" + j + "-" + ipCell[i].name ).draggable( 
+				
+				var tmpName = "#img-" + j + "-" + ipCell[i].name
+				
+				$( tmpName ).draggable( 
 								{ containment: "parent", 
 								  grid: [ 10, 10 ],
 								  opacity: 0.35,
 								  snap: true,
 								  snapeMode: "outer",
 								  snapTolerance: 20
-								}).toggle({ effect: "scale", percent: 0.25});
+							});
+							
 				// mouseover event handler 
-				$( "#img-" + j + "-" + ipCell[i].name ).mouseenter( mouseenterCallback(i) );
+				$( tmpName ).mouseenter( mouseenterCallback(i) );
 
 			} // close if
 		   } // close 'j' for loop
