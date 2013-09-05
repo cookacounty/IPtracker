@@ -28,6 +28,8 @@ describe Cdscell do
   it { should respond_to(:rm_silicon!) }
   it { should respond_to(:used_in_silicon?) }
   
+  #Categories
+  
   #Need to fix this test
   #its(:cdslib) { should eq cdslib }
   
@@ -37,7 +39,7 @@ describe Cdscell do
   describe "tracking silicon" do
     let(:silicon) { FactoryGirl.create(:silicon) }
     before do
-      @cdscell.save
+      @cdscell.save!
       @cdscell.add_silicon!(silicon)
     end
 

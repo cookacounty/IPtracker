@@ -1,5 +1,5 @@
 <%= @uploadedPath %>
-<div class="row">
+<div class="row-fluid">
 	<% if @form_errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@form_errors.count, "error") %> prohibited the file upload</h2>
@@ -11,7 +11,7 @@
       </ul>
     </div>
     <% end %>
-<div class="row">
+<div class="row-fluid">
 	
 	<div class="span4">
 	<%= form_tag({action: :upload}, multipart: true) do %>

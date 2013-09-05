@@ -11,7 +11,7 @@ FactoryGirl.define do
   end
 
   factory :silicon do
-    sequence(:name)  { |n| "000#{n}AA" }
+    sequence(:name)  {|n| "%04dXX" % [n]}
   end
 
   factory :micropost do

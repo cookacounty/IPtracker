@@ -33,7 +33,7 @@
   </div>
   <div class="field">
     <%= f.label :cdslib_id %><br>
-    <%= f.number_field :cdslib_id %>
+    <%= collection_select(:cdscell, :cdslib_id, Cdslib.all, :id, :name, {:prompt=>true}, {:style => "height:40px"}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

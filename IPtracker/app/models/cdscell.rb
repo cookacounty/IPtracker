@@ -5,6 +5,9 @@ class Cdscell < ActiveRecord::Base
   attr_accessor :libname
   attr_accessor :imgpath
   
+  #Categories
+  acts_as_taggable_on :categories
+  
   #Cell Tracker
   has_many :celltrackers, foreign_key: "tracked_id", dependent: :destroy
   has_many :trackers, through: :celltrackers, source: :tracker

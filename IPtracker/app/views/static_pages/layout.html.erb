@@ -11,52 +11,57 @@
 
 
   <style>
-  h1 { padding: .2em; margin: 0; }
-  #products { width: 620px;  margin-top: 2em;  }
-  #layout-header { width: 620px; margin-top: 2em;  }
-  #cart { width: 620px; margin-top: 2em; }
+  /*#h1 { padding: .2em; margin: 0; }*/
+  #products { margin-top: 2em;  }
+  #layout-header { margin-top: 2em;  }
+  #cart { margin-top: 2em; }
   /* style the list to maximize the droppable hitarea */
   #cart ol { margin: 0; padding: 1em 0 1em 3em; }
-  #layout-canvas { width: 1000px; height: 500px; padding: 0.5em; margin-top: 2em; background-color: #FFE; border: double 5px red; }
+  #layout-canvas { width: 100%; height: 400px ;padding: 0.5em;margin-left: 2em; margin-top: 2em; background-color: #FFE; border: double 5px red; }
   </style>
 
 </head>
 
-
-<div id="products">
-  <h1 class="ui-widget-header">IP Library</h1>
-  <div id="catalog">
-    <h2><a href="#">Tracked Cells</a></h2>
-      <ul id="all-cells">
-      </ul>
-    <h2><a href="#">Reg's and Ref's</a></h2>
-      <ul id="regs-refs">
-      </ul>    <h2><a href="#">Hall Plates</a></h2>
-      <ul id="hall-plates">
-      </ul>
-    <h2><a href="#">Signal Path</a></h2>
-      <ul id="signal-path">
-      </ul>
-    <h2><a href="#">Memories</a></h2>
-      <ul id="memories">
-      </ul>
-  </div>
-</div>
+<div class="row-fluid">
+	<div class="span3">
+		<div id="products">
+		  <h1 class="ui-widget-header">IP Library</h1>
+		  <div id="catalog">
+			    <h2><a href="#">Tracked Cells</a></h2>
+			      <ul id="all-cells">
+			      </ul>
+			    <h2><a href="#">Reg's and Ref's</a></h2>
+			      <ul id="regs-refs">
+			      </ul>    <h2><a href="#">Hall Plates</a></h2>
+			      <ul id="hall-plates">
+			      </ul>
+			    <h2><a href="#">Signal Path</a></h2>
+			      <ul id="signal-path">
+			      </ul>
+			    <h2><a href="#">Memories</a></h2>
+			      <ul id="memories">
+			      </ul>
+			</div>
+		</div>
  
-<div id="cart">
-  <h1 class="ui-widget-header"><div id="die-area"></div></h1>
-  <div class="ui-widget-content">
-    <table id="added-item-list">
-	<tr class="placeholder"><td><b>Add your items here</b></td></tr>
-    </table>
-  </div>
+		<div id="cart">
+		  <h2 class="ui-widget-header"><div id="die-area"></div></h2>
+		  <div class="ui-widget-content">
+		    <table id="added-item-list">
+			<tr class="placeholder"><td><b>Add your items here</b></td></tr>
+		    </table>
+		  </div>
+		</div>
+	</div>
+	
+	<div class="span9"
+		<div class="row-fluid">
+		<div id="layout-header" class="span7">
+			<h1 class="ui-widget-header">Layout Canvas: 2.4mm X 1.2mm</h1>
+		</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span7"><div id="layout-canvas"></div>
+		</div>
+	</div>
 </div>
-
-
-<div id="layout-header">
-<h1 class="ui-widget-header">Layout Canvas: 2.4mm X 1.2mm</h1>
-</div>
-
-<div id="layout-canvas">
-</div>
-
