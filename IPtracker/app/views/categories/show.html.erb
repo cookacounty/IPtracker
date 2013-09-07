@@ -1,0 +1,43 @@
+<% provide(:title, @category.name) %>
+
+<div class = "row">
+<h1>Category: <%=@category.name %></h1>
+</div>
+
+
+<table class="table table-bordered">
+	
+  <thead>
+      <h3>Category Information</h3>
+	</thead>
+	<tr>
+		<th> Name </th>
+		<th> <%= @category.name %> </th>
+	</tr>
+	<tr> 
+		<th>Created </th>
+		<th><%= @category.created_at.strftime("%d %b. %Y") %> </th>
+	</tr>
+	<tr> 
+		<th>Updated </th>
+		<th><%= @category.updated_at.strftime("%d %b. %Y") %> </th>
+	</tr>
+
+</table>
+
+<%= render partial: 'shared/view_controls', :locals =>{:subject => @category,:subject_controller => "categories"} %>
+
+
+<div class = "row">
+<div class = "span12">
+<h5> Referenced Libraries </h5>
+<%= render @cdslibs%>
+<%= will_paginate @cdslibs, :param_name => "cdslib_page" %>
+
+<div class = "row">
+<div class = "span12">
+<h5> Referenced Cells </h5>
+<%= render @cdscells%>
+<%= will_paginate @cdscells, :param_name => "cdscell_page" %>
+</div>
+</div>

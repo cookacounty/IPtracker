@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   
   before_action :signed_in_user,
-                only: [:index, :edit, :update, :destroy, :following, :followers]
+                only: [:index, :edit, :update, :destroy, :following, :followers, :categories_json]
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
 
@@ -73,6 +73,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @tracked_cells = @user.tracked_cells.paginate(:per_page => 10, page: params[:page])
     render 'show_tracked'
+  end
+
+  
+  def categories_json
+    categories = current_user.categories
+    render :text => categories.to_json.to_s
   end
 
   private

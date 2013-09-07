@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
+ 
+  #Relationships
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
   has_many :reverse_relationships, foreign_key: "followed_id",
@@ -7,8 +9,14 @@ class User < ActiveRecord::Base
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
   
+  #Cell trackers
   has_many :celltrackers, foreign_key: "tracker_id", dependent: :destroy
   has_many :tracked_cells, through: :celltrackers, source: :tracked
+  
+  
+  #Categories
+  has_many :categories, foreign_key: "user_id", dependent: :destroy
+  
   
   before_save { email.downcase! }
   before_create :create_remember_token
@@ -22,8 +30,6 @@ class User < ActiveRecord::Base
 
   has_secure_password
   validates :password, length: { minimum: 6 }
-  
-  acts_as_tagger
   
   def User.new_remember_token
     SecureRandom.urlsafe_base64
@@ -65,6 +71,22 @@ class User < ActiveRecord::Base
   end
   def untrack!(cell)
     celltrackers.find_by(tracked_id: cell.id).destroy!
+  end
+  
+  def uncategorized_cells
+    
+    cells = Cdscell.all
+        
+    categories = self.categories
+    
+    categories.each do |category|
+      categorized_cells = category.cdscells
+      
+      cells = cells - categorized_cells
+    end
+    
+    return cells   
+     
   end
   
   

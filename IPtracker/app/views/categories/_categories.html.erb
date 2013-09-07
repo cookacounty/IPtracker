@@ -1,0 +1,15 @@
+
+<table class="pretty">
+
+  <% for category in @categories %>
+  <tr>
+    <td><%= link_to category.name, 'categories' %></td>
+  </tr>
+  <% end %>
+
+<%= button_to "New", 
+   {:controller => 'categories', :action => 'new'},
+   {:method => :get, :class => 'btn-primary'}
+%>
+</table>
+

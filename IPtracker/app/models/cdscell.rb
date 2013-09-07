@@ -1,12 +1,10 @@
 class Cdscell < ActiveRecord::Base
 
-  belongs_to :cdslib
-  
+  #Attributes  
   attr_accessor :libname
   attr_accessor :imgpath
   
-  #Categories
-  acts_as_taggable_on :categories
+  belongs_to :cdslib
   
   #Cell Tracker
   has_many :celltrackers, foreign_key: "tracked_id", dependent: :destroy
@@ -16,9 +14,14 @@ class Cdscell < ActiveRecord::Base
   has_many :silicontrackers, foreign_key: "cdscell_id", dependent: :destroy
   has_many :silicons, through: :silicontrackers, source: :silicon
   
-  #before_save :generate_image
-  after_destroy :remove_image
+  #Categories
+  has_many :cell_categories, foreign_key: "cdscell_id", dependent: :destroy
+  has_many :categories, through: :cell_categories, source: :category  
   
+  #before_save :generate_image
+  after_destroy :delete_image
+  
+  #Validations
   default_scope -> { order('cdslib_id ASC , area DESC') }
   validates :cdslib_id, presence: true
   validates :name,  presence: true, 
@@ -27,8 +30,10 @@ class Cdscell < ActiveRecord::Base
   validates :ysize, presence: true, numericality: { only_integer: true }                    
   validates :area, presence: true, numericality: { only_integer: true }
 
-  
   #has_attached_file :libimg, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => 'missing.png'
+  
+  ## Silicons
+  
   def used_in_silicon?(silicon)
     silicontrackers.find_by(silicon_id: silicon.id)
   end
@@ -39,6 +44,32 @@ class Cdscell < ActiveRecord::Base
   def rm_silicon!(silicon)
     silicontrackers.find_by(silicon_id: silicon.id).destroy!
   end
+  
+  
+  ## Categories
+  
+  def in_category?(category)
+    cell_categories.find_by(category_id: category.id)
+  end
+  def add_category!(category)
+    categories = self.categories.find_by(name: category.name)
+    cell_categories.create!(category_id: category.id) if !categories
+  end
+  def rm_category!(category)
+    cell_categories.find_by(category_id: category.id).destroy!
+  end
+  def add_category_list!(user,category_list)
+    
+    #Create the categories if the do not exist
+    categories = Category.create_from_list(user,category_list)
+  
+    #Tag cell with each category
+    categories.each do |category|
+      self.add_category!(category)
+    end
+  end
+    
+  ## Images
   
   def update_png_location(destination_path)
     self.layimg_file_name = destination_path

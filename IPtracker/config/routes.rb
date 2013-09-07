@@ -15,8 +15,13 @@ IPtracker::Application.routes.draw do
   post "cdsimport/upload"
   match '/cdsimport/upload',  to: 'cdsimport#import',  via: 'get'
 
-  resources :categories
-  
+  resources :categories do
+    member do
+      nil
+      #get :following, :followers, :tracked
+    end
+  end
+
   resources :cdscells do
     member do
       get :tracking
@@ -27,6 +32,9 @@ IPtracker::Application.routes.draw do
     end
   end
   get '/cdscells/browse_show/:id', to: 'cdscells#browse_show'
+
+  get '/users/categories_json', to: 'users#categories_json'
+
   
   resource :static_pages do
     member do

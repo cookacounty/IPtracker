@@ -2,22 +2,33 @@
 
 <button class='btn-primary' id="expandList"  >Expand All  </button>
 <button class="btn"         id="collapseList">Collapse All</button>
+<%= button_to "New", 
+   {:controller => 'categories', :action => 'new'},
+   {:method => :get, :class => 'btn-primary'}
+%>
+
 
 <div id="listContainer">
 	<ul id="expList">
 		<% @categories.each do |category| %>
 		<li>
-			<%= category %>
+			<%= link_to category.name, category %>
+			
 			<ul>
-				<%i=0%>
-	  	  		<% Cdscell.tagged_with(category, :on => :categories, :owned_by => @user).each do |cdscell| %>
+	  	  		<% category.cdscells.each do |cdscell| %>
 		  			<li> <%= link_to "#{cdscell.cdslib.name} #{cdscell.name}", cdscell %> </li>
 		  		<% end %>
 	  		</ul>
-		</li>
-  
-  
+		</li>  
 		<% end %>
+		<li>
+			Uncategorized
+			<ul>
+				<% @uncategorized.each do |cdscell| %>
+					<li> <%= link_to "#{cdscell.cdslib.name} #{cdscell.name}", cdscell %> </li>
+				<% end %>
+			<ul>
+		</li>
 	</ul>
 </div>
 

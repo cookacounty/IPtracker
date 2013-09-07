@@ -2,12 +2,15 @@
 
 <h1>Inventory</h1>
 
+<h3>Need to fix pagination on this page.Currently it carries from tab to tab</h3>
+
 <div class="tabbable"> <!-- Only required for left/right tabs -->
   <ul class="nav nav-tabs" id="my_tabs">
     <li><a href="#tab1" data-toggle="tab">Silicon</a></li>
     <li><a href="#tab2" data-toggle="tab">Libraries</a></li>
     <li><a href="#tab3" data-toggle="tab">Cells</a></li>
     <li><a href="#tab4" data-toggle="tab">Tracked Cells</a></li>
+    <li><a href="#tab5" data-toggle="tab">Categories</a></li>
   </ul>
   
 	<div class="tab-content">
@@ -26,6 +29,10 @@
 		<div class="tab-pane" id="tab4">
 			<%= render @tracked_cells%>
 			<%= will_paginate @tracked_cells, :params => {:tab => "tab4"} %>
+		</div>
+		<div class="tab-pane" id="tab5">
+			<%= render  :partial => '/categories/categories'%>
+			<%= will_paginate @categories, :params => {:tab => "tab5"} %><br />
 		</div>
 	</div>
 </div>

@@ -1,0 +1,45 @@
+<%= javascript_include_tag "select2.min.js" %>
+<%= javascript_include_tag "categories_editable_list" %>
+<%= stylesheet_link_tag "select2.css" %>
+
+<%= hidden_field_tag :cdscell_id, @cdscell.id %>
+
+<table class="table table-bordered">
+	
+  <thead>
+      <h3><%= link_to @cdscell.name, @cdscell %></h3>
+	</thead>
+	<tr> 
+		<th> Library </th>
+		<th> <%= link_to @cdscell.cdslib.name, @cdscell.cdslib %> </th>
+	</tr>
+	<tr> 
+		<th> <%= link_to 'Category'.pluralize(@categories.count), categories_url %> </th>
+		<th> 
+	        <p><input type="hidden" id="category_tags" style="width:300px" value="<%= @categories.map(&:name).join(",") %>"/></p>
+		</th>
+	</tr>
+	<tr> 
+		<th> x (um) </th>
+		<th> <%= @cdscell.xsize %></th>
+	</tr>
+	<tr> 
+		<th> y (um) </th>
+		<th> <%= @cdscell.ysize %></th>
+	</tr>
+	<tr> 
+		<th> Area (mm^2) </th>
+		<th> <%= sprintf("%.2f", @cdscell.area/(1000.0*1000.0)) %> </th>
+	</tr>
+	<tr> 
+		<th>Created </th>
+		<th><%= @cdscell.created_at.strftime("%d %b. %Y") %> </th>
+	</tr>
+	<tr> 
+		<th>Updated </th>
+		<th><%= @cdscell.updated_at.strftime("%d %b. %Y") %> </th>
+	</tr>
+	<tr>
+	</tr>
+
+</table>

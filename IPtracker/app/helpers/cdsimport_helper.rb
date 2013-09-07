@@ -143,20 +143,20 @@ module CdsimportHelper
       cdscell = cdslib.cdscells.create!(name: name, xsize: xsize, ysize: ysize, area: area)
     end
     
-    categorize_cell(cdscell)
+    #categorize_cell(cdscell)
     
     cdscell.add_silicon!(silicon)
     
     return cdscell
   end
   
-  #Categorize each cell with default "uncategorized"
-  def categorize_cell(cdscell)
+  #Categorize each cell with specified default 
+  def categorize_cell(cdscell, category)
 
-    User.all.each do |user|
+    Category.where.not(name: category.name).each do |cat|
       #Only run if the cell is not tagged
-      uncategorized = cdscell.categories_from(user).empty?
-      if uncategorized
+      cdscell = category.cdscells.find_by(name: "uncategorized")
+      if !cdscell
         user.tag(cdscell, :with => "uncategorized", :on => :categories)
       end
     end

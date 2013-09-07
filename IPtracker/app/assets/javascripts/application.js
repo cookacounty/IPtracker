@@ -16,6 +16,7 @@
 //= require jquery-ui-1.10.3.custom
 //= require grid.locale-en.js
 //= require jquery.jqGrid.min.js
+//= require bootstrap-editable.js
 //= require bootstrap
 //= require turbolinks
 //= require_tree ./global

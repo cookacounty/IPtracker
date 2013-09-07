@@ -31,9 +31,8 @@ FactoryGirl.define do
     cdslib
         
   end
-  
-  sequence :category do |n|
-    "Junk Cells #{n}"
+  factory :category do
+    sequence(:name)   { |n| "Category#{n}" }
+    user        
   end
-  
 end

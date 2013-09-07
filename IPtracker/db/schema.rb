@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130828235708) do
+ActiveRecord::Schema.define(version: 20130907125201) do
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "categories", ["user_id"], name: "index_categories_on_user_id"
 
   create_table "cdscells", force: true do |t|
     t.string   "name"
@@ -38,6 +47,17 @@ ActiveRecord::Schema.define(version: 20130828235708) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "cell_categories", force: true do |t|
+    t.integer  "cdscell_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cell_categories", ["category_id", "cdscell_id"], name: "index_cell_categories_on_category_id_and_cdscell_id", unique: true
+  add_index "cell_categories", ["category_id"], name: "index_cell_categories_on_category_id"
+  add_index "cell_categories", ["cdscell_id"], name: "index_cell_categories_on_cdscell_id"
 
   create_table "celltrackers", force: true do |t|
     t.integer  "tracker_id"
@@ -86,23 +106,6 @@ ActiveRecord::Schema.define(version: 20130828235708) do
   add_index "silicontrackers", ["cdscell_id"], name: "index_silicontrackers_on_cdscell_id"
   add_index "silicontrackers", ["silicon_id", "cdscell_id"], name: "index_silicontrackers_on_silicon_id_and_cdscell_id", unique: true
   add_index "silicontrackers", ["silicon_id"], name: "index_silicontrackers_on_silicon_id"
-
-  create_table "taggings", force: true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       limit: 128
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
-
-  create_table "tags", force: true do |t|
-    t.string "name"
-  end
 
   create_table "users", force: true do |t|
     t.string   "name"

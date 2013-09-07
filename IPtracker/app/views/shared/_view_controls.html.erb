@@ -5,6 +5,9 @@
 	  <div class="span2">
 	    <%= render 'track_form' if signed_in? %>
 	  </div>
+	  <div class="span2">
+	    <%= render 'save_form' if signed_in? %>
+	  </div>
 	<% else %>
 	<%offset="" %>
 	<% end %>

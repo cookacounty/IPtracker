@@ -30,9 +30,9 @@ describe Cdscell do
   
   #Categories
   it {should respond_to(:categories)}
-  it {should respond_to(:category_list)}
-  it {should respond_to(:categories_from)}
-  it {should respond_to(:owner_tags_on)}
+  it {should respond_to(:in_category?)}
+  it {should respond_to(:add_category!)}
+  it {should respond_to(:rm_category!)}
 
   #Need to fix this test
   #its(:cdslib) { should eq cdslib }
@@ -73,6 +73,32 @@ describe Cdscell do
     #end
     
   end
+  
+  describe "adding cell to category" do
+    let(:category) { FactoryGirl.create(:category) }
+    before do
+      @cdscell.save!
+      @cdscell.add_category!(category)
+    end
+    
+    subject { @cdscell }
+
+    it { should be_in_category(category) }
+    its(:categories) { should include(category) }
+
+    describe "and then removed from category" do
+      
+      before { @cdscell.rm_category!(category) }
+      
+      subject { @cdscell }
+      
+      it { should_not be_in_category(category) }
+      its(:categories) { should_not include(category) }
+    end
+  end
+  
+  
+  #Test that a category list can be assigned
   
   #Test that cdslib id is correct
   

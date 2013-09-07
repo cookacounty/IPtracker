@@ -1,6 +1,7 @@
 class CdscellsController < ApplicationController
-  before_action :set_cdscell, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_cdscell,    only: [:show, :browse_show, :edit, :update, :destroy, :categories_json]
+  before_action :get_categories, only: [:show, :browse_show, :categories_json]
+  
   # GET /cdscells
   # GET /cdscells.json
   def index
@@ -100,6 +101,9 @@ class CdscellsController < ApplicationController
       @cdscell = Cdscell.find(params[:id])
       #@cdscell = current_cdslib.microposts.find_by(id: params[:id])
       #redirect_to root_url if @micropost.nil?
+    end
+    def get_categories
+      @categories = @cdscell.categories
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

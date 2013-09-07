@@ -1,0 +1,33 @@
+$(document).ready(function() {
+ 	
+	//var cells=['enhancement','bug'];
+    //function format(item) { return item.tag; };
+    
+    var cdscell_id = document.getElementById('cdscell_id').value;
+    
+	//Retrive cdscells in a json stream
+	var category_json = [];
+	$.ajax({
+	  url: '/users/categories_json',
+	  async: false,
+	  dataType: 'json',
+	  success: function (json) {
+	    category_json = json;
+	    console.log(json);
+	  }
+	});
+	
+	//Convert the JSON objects to a list of strings
+	var category_tags = []
+    for (var i=0; i<category_json.length; i++)
+	{
+		category_tags[i] = category_json[i].name
+	}
+	
+ 	 $("#category_tags").select2({
+			tags: category_tags,
+			placeholder: "Search",
+			allowClear: true,
+            tokenSeparators: [","]
+        });
+});

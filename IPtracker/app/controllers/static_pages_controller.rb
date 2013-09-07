@@ -33,6 +33,7 @@ class StaticPagesController < ApplicationController
   end
   
   def inventory
+    @categories = current_user.categories.paginate(:per_page => 10, page: params[:page])
     @silicons = Silicon.paginate(:per_page => 10, page: params[:page])
     @cdslibs  = Cdslib.paginate(:per_page => 10, page: params[:page])
     @cdscells = Cdscell.paginate(:per_page => 10, page: params[:page])
