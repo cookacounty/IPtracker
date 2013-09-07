@@ -47,8 +47,8 @@ module CdsimportHelper
     #Create or update the silicon
     silicon = cdsin_create_silicon(silicon_name)
     
-    libRegexp = /^\S\w+/ #first char is not white space
-    cellRegexp = /^\s+\w+.+/ #first char is white space
+    libRegex = /^\S\w+/ #first char is not white space
+    cellRegex = /^\s+\w+.+/ #first char is white space
     
     lineNumber = 1
     headerLines = 1
@@ -57,11 +57,14 @@ module CdsimportHelper
     
     fout_path = Settings.iptracker.import_log
     
+    #Open the file, parse each line
     File.open(fout_path, 'w') do |fout|
       
       fin_read.each_line do |line|
-        isLib  = line.match(libRegexp)
-        isCell = line.match(cellRegexp)
+        
+        #Determine what the line is based on regex
+        isLib  = line.match(libRegex)
+        isCell = line.match(cellRegex)
         isSkip = lineNumber <= headerLines
         
         prefix = "#{lineNumber}:"
@@ -102,6 +105,7 @@ module CdsimportHelper
 
   end
   
+  #Create the silicon/Update if it exists
   def cdsin_create_silicon(name)
     silicon = Silicon.find_by_name(name)
     
@@ -114,6 +118,7 @@ module CdsimportHelper
     return silicon
   end
   
+  #Create the library/Update if it exists
   def cdsin_create_lib(name)
     cdslib = Cdslib.find_by_name(name)
     
@@ -126,6 +131,7 @@ module CdsimportHelper
     return cdslib
   end
   
+  #Create the cell/Update if it exists
   def cdsin_create_cell(silicon,cdslib,name,xsize,ysize,area)
     
     cdscell = cdslib.cdscells.find_by(name: name)
@@ -133,13 +139,28 @@ module CdsimportHelper
     if cdscell
       cdscell.update!(xsize: xsize, ysize: ysize, area: area)
     else
+      #create the cell
       cdscell = cdslib.cdscells.create!(name: name, xsize: xsize, ysize: ysize, area: area)
     end
+    
+    categorize_cell(cdscell)
     
     cdscell.add_silicon!(silicon)
     
     return cdscell
   end
   
+  #Categorize each cell with default "uncategorized"
+  def categorize_cell(cdscell)
+
+    User.all.each do |user|
+      #Only run if the cell is not tagged
+      uncategorized = cdscell.categories_from(user).empty?
+      if uncategorized
+        user.tag(cdscell, :with => "uncategorized", :on => :categories)
+      end
+    end
+    
+  end
   
 end

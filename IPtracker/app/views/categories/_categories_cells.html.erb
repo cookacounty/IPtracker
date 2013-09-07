@@ -1,0 +1,24 @@
+
+
+<button class='btn-primary' id="expandList"  >Expand All  </button>
+<button class="btn"         id="collapseList">Collapse All</button>
+
+<div id="listContainer">
+	<ul id="expList">
+		<% @categories.each do |category| %>
+		<li>
+			<%= category %>
+			<ul>
+				<%i=0%>
+	  	  		<% Cdscell.tagged_with(category, :on => :categories, :owned_by => @user).each do |cdscell| %>
+		  			<li> <%= link_to "#{cdscell.cdslib.name} #{cdscell.name}", cdscell %> </li>
+		  		<% end %>
+	  		</ul>
+		</li>
+  
+  
+		<% end %>
+	</ul>
+</div>
+
+<%= javascript_include_tag "expandable_list" %>

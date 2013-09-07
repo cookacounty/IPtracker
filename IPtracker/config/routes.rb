@@ -15,6 +15,7 @@ IPtracker::Application.routes.draw do
   post "cdsimport/upload"
   match '/cdsimport/upload',  to: 'cdsimport#import',  via: 'get'
 
+  resources :categories
   
   resources :cdscells do
     member do

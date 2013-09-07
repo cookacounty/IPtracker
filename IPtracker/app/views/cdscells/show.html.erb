@@ -18,6 +18,10 @@
 		<th> <%= link_to @cdscell.cdslib.name, @cdscell.cdslib%> </th>
 	</tr>
 	<tr> 
+		<th> Category </th>
+		<th> <%= link_to @cdscell.categories_from(current_user), url_for(:action => 'index', :controller => 'categories') %> </th>
+	</tr>
+	<tr> 
 		<th> x (um) </th>
 		<th> <%= @cdscell.xsize %></th>
 	</tr>

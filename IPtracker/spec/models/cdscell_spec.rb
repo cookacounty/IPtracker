@@ -29,7 +29,11 @@ describe Cdscell do
   it { should respond_to(:used_in_silicon?) }
   
   #Categories
-  
+  it {should respond_to(:categories)}
+  it {should respond_to(:category_list)}
+  it {should respond_to(:categories_from)}
+  it {should respond_to(:owner_tags_on)}
+
   #Need to fix this test
   #its(:cdslib) { should eq cdslib }
   

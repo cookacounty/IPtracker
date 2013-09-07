@@ -29,6 +29,11 @@ FactoryGirl.define do
     sequence(:ysize)  { |n| 30+n }
     sequence(:area)   { |n| 100+n }
     cdslib
+        
+  end
+  
+  sequence :category do |n|
+    "Junk Cells #{n}"
   end
   
 end

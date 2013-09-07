@@ -37,6 +37,12 @@ describe User do
   it { should respond_to(:untrack!) }
   it { should respond_to(:tracking?) }
   
+  #Cell Categories
+  it {should respond_to{:tag}}
+  it {should respond_to{:ownded_taggings}}
+  it {should respond_to{:ownded_tags}}
+
+  
   it { should be_valid }
   it { should_not be_admin }
 
@@ -244,6 +250,20 @@ describe User do
     #  subject{ cell }
     #  its(:trackers) { should_not include(@user) }
     #end
+    
+  end
+  
+  describe "create cell category" do
+
+    let(:cdscell)  { FactoryGirl.create(:cdscell)    }
+    let(:category) { FactoryGirl.generate(:category) }
+
+    before do
+      @user.tag(cdscell, :with => category, :on => :categories )
+    end
+    
+    its(:owned_tags)     { should include(category)}   
+    its(:owned_taggings) { should include(cdscell)}
     
   end
   
