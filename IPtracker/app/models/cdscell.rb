@@ -58,15 +58,30 @@ class Cdscell < ActiveRecord::Base
   def rm_category!(category)
     cell_categories.find_by(category_id: category.id).destroy!
   end
+  
   def add_category_list!(user,category_list)
     
     #Create the categories if the do not exist
     categories = Category.create_from_list(user,category_list)
   
+    #get the current categories assigned to the cell (for a give user)
+    assigned_categories = self.categories & user.categories
+    
+    removed_categores = assigned_categories - categories    
+    
+    #Remove already assigned categories
+    removed_categores.each do |category|
+      self.rm_category!(category)
+    end
+    
     #Tag cell with each category
     categories.each do |category|
       self.add_category!(category)
     end
+    
+    #Remove empty categories
+    Category.cleanup!(user)
+    
   end
     
   ## Images

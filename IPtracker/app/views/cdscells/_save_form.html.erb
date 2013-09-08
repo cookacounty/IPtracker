@@ -1,5 +1,0 @@
-<%= form_for(@cdscell.categories.build(name: 'junk'),
-             html: { method: :update }, remote: true)  do |f| %>
-  <div><%= f.hidden_field 'name'%></div>
-  <%= f.submit "Save", class: "btn btn-large btn-warning btn-block" %>
-<% end %>

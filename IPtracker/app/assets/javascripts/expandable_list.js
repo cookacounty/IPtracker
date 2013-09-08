@@ -30,7 +30,7 @@ function prepareList() {
     .unbind('click')
     .click( function() {
         $('.collapsed').removeClass('expanded');
-        $('.collapsed').children().hide('medium');
+        $('.collapsed').children('ul').hide('medium');
     })
     
 };

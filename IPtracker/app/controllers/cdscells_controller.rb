@@ -1,5 +1,5 @@
 class CdscellsController < ApplicationController
-  before_action :set_cdscell,    only: [:show, :browse_show, :edit, :update, :destroy, :categories_json]
+  before_action :set_cdscell,    only: [:show, :browse_show, :edit, :update, :destroy, :categories_json, :update_category]
   before_action :get_categories, only: [:show, :browse_show, :categories_json]
   
   # GET /cdscells
@@ -52,6 +52,17 @@ class CdscellsController < ApplicationController
         format.json { render json: @cdscell.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  def update_category
+    
+    category_list = params[:category_list]
+    
+    if category_list
+      @cdscell.add_category_list!(current_user,category_list)
+    end
+    
+    render :nothing => true
   end
 
   # DELETE /cdscells/1

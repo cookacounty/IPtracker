@@ -36,5 +36,14 @@ class Category < ActiveRecord::Base
     return return_list
     
   end
+  def self.cleanup!(user)
+    
+    user.categories.each do |category|
+      empty_category = category.cdscells.empty?
+      if empty_category
+        category.destroy!
+      end
+    end
+  end
   
 end

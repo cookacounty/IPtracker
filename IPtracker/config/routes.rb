@@ -25,6 +25,7 @@ IPtracker::Application.routes.draw do
   resources :cdscells do
     member do
       get :tracking
+      put :update_category
     end
     collection do
       get 'track_json'
@@ -34,7 +35,6 @@ IPtracker::Application.routes.draw do
   get '/cdscells/browse_show/:id', to: 'cdscells#browse_show'
 
   get '/users/categories_json', to: 'users#categories_json'
-
   
   resource :static_pages do
     member do

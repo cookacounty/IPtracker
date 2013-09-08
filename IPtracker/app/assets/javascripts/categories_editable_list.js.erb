@@ -26,8 +26,69 @@ $(document).ready(function() {
 	
  	 $("#category_tags").select2({
 			tags: category_tags,
-			placeholder: "Search",
+			placeholder: "Add Categories",
 			allowClear: true,
             tokenSeparators: [","]
         });
+        
+    //Make the Update link work
+    $().ready(function(){
+    $('#update_button').click(function(){
+        //$(this).attr('href', $(this).attr('href') + '?'+'id='+cdscell_id+ '&' +'category_list=' + $('#category_tags').val());
+        var data = "category_list="+$('#category_tags').val()
+        jQuery.ajax({
+	        type: 'PUT',
+	        url: '/cdscells/'+cdscell_id+'/update_category',
+	        data: data,
+	        success: function(){ showFlash("Updated successfully",'alert-success'), alertTimeout(3000) },
+	        falure:  function(){ showFlash("Failed to update!"   ,'alert-failure'), alertTimeout(5000) }
+    });
+        
+    });
+
 });
+});
+
+ function showFlash(message,alert_class) {
+    jQuery('body').prepend('<div id="flash" style="display:none"></div>');
+    jQuery('#flash').html(message);
+    jQuery('#flash').toggleClass('alert '+alert_class);
+    jQuery('#flash').slideDown('slow');
+    jQuery('#flash').click(function () { $('#flash').remove() });
+}
+
+function alertTimeout(wait){
+    setTimeout(function(){
+        $('#flash').fadeOut(1000, function() { $(this).remove(); });
+    }, wait);
+}
+
+function reload_cells(){
+	//$("#cdscell_summary").html("/cdscells/cdscell_summary")
+}
+
+/*
+function post_to_url(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+*/

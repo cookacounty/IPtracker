@@ -3,9 +3,13 @@
 
   <% for category in @categories %>
   <tr>
-    <td><%= link_to category.name, 'categories' %></td>
+    <td><%= link_to category.name, category %></td>
   </tr>
   <% end %>
+<%= button_to "Index", 
+   {:controller => 'categories', :action => 'index'},
+   {:method => :get, :class => 'btn-primary'}
+%>
 
 <%= button_to "New", 
    {:controller => 'categories', :action => 'new'},
