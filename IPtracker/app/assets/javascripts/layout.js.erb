@@ -4,83 +4,62 @@
     //$( document ).tooltip();
 
     var totalArea = 0; 
-    
-    var ipCell = [ 
-	{ category: "hall-plates",name : "hall-miniquad",file : "au1_HP_QUAD60_EPI_DB8E_4MS.jpg" ,x :250 ,y : 250, qty :0, row:0 },
-	{ category: "regs-refs",name : "bandgap" ,file : "au1_Bandgap1_b.jpg" ,x : 300 ,y : 100, qty : 0, row:0 } ,
-	{ category: "regs-refs",name : "1377-reg-por-sys" ,file : "1377_reg_sys_aa.jpg" ,x : 400 ,y : 900, qty : 0, row:0 } ,
-	{ category: "regs-refs",name : "1677-reg-por-sys" ,file : "1677_regulator_aa.jpg" ,x : 1280 ,y : 384, qty : 0, row:0 } ,
-	{ category: "signal-path",name : "1377-front-end" ,file : "1377_front_end_aa.jpg" ,x : 820 ,y : 500, qty : 0, row:0 } ,
-	{ category: "memories",name : "sram-256X8",file : "au1_SRAM_AH_256x32.jpg" ,x : 650 ,y : 650, qty : 0, row:0 } , 
-	{ category: "memories",name : "rom-4k-x-32",file : "au1_ROM_4KX32.jpg" ,x : 1034 ,y : 642, qty : 0, row:0 } , 
-	{ category: "memories",name : "eeprom-charge-pump",file : "au1_EEprom_Charge_Pump.jpg" ,x : 580 ,y : 570, qty : 0, row:0 } , 
-	{ category: "memories",name : "eeprom-16x32",file : "au1_EEPROM_TOP_16x32_a.jpg" ,x : 976 ,y : 346, qty : 0, row:0 } 
-	] ;
-	
-	//Update the image path for these demo guys
-	var imagePath = '<img src="/assets<%= Rails.root.join('public','layouts') %>/';
-    for (var i=0; i<ipCell.length; i++)
-	{
-		ipCell[i].file = imagePath + ipCell[i].file;	
-	}	
+    	
 	
 	//Retrive cdscells in a json stream
-	var cdscells = [];
+	var categories = [];
 	$.ajax({
-	  url: '/cdscells/track_json',
+	  url: '/cdscells/categorized_json',
 	  async: false,
 	  dataType: 'json',
 	  success: function (json) {
-	    cdscells = json;
+	    categories = json;
 	    console.log(json);
 	  }
 	});
 	
+	var ipCell = []
+	
 	//alert(cdscells); // has value of json.whatever
 	//alert(cdscells[0].name)
 	var img_prefix = '<img src="';
-    for (var i=0; i<cdscells.length; i++)
-	{
-		cdscells[i].x = cdscells[i].xsize;
-		cdscells[i].y = cdscells[i].ysize;
-		cdscells[i].qty = 0;
-		cdscells[i].row = 0;
-		cdscells[i].category = "all-cells";
-		cdscells[i].file = img_prefix + cdscells[i].imgpath; //Get the actual image location on server
-		ipCell.push(cdscells[i])
+	for (var j=0; j<categories.length; j++) {
+		
+		var cdscells = categories[j].cdscells
+		 
+	    for (var i=0; i<cdscells.length; i++)
+		{
+			cdscells[i].x = cdscells[i].xsize;
+			cdscells[i].y = cdscells[i].ysize;
+			cdscells[i].qty = 0;
+			cdscells[i].row = 0;
+			cdscells[i].category = categories[j].name;
+			cdscells[i].file = img_prefix + cdscells[i].imgpath; //Get the actual image location on server
+			ipCell.push(cdscells[i])
+		}
+		categories[j].cdscells = cdscells
 	}
 	
-	
+	console.log(categories)
 	console.log(ipCell);
 	
-    // Cycle through the layout array and add the items to the appropriate library menus
-    // div elements are added with ipCell.name for future use
-    for (var i=0; i<ipCell.length; i++)
-	{
-		if (ipCell[i].category == "all-cells")
-		{
-		$( '#all-cells' )
-			.append( '<li id="'+ipCell[i].name+' ">' + ipCell[i].name + '</li>' );
-		}
-    	if (ipCell[i].category == "regs-refs")
-		{
-		$( '#regs-refs' )
-			.append( '<li id="'+ipCell[i].name+' ">' + ipCell[i].name + '</li>' );
-		}
-	if (ipCell[i].category == "signal-path")
-		{
-		$( '#signal-path' )
-			.append( '<li id="'+ipCell[i].name+' ">' + ipCell[i].name + '</li>' );
-		}
-	if (ipCell[i].category == "hall-plates")
-		{
-		$( '#hall-plates' )
-			.append( '<li id="'+ipCell[i].name+' ">' + ipCell[i].name + '</li>' );
-		}
-        if (ipCell[i].category == "memories")
-		{
-		$('#memories' )
-			.append( '<li id="'+ipCell[i].name+' ">' + ipCell[i].name + '</li>' );
+	
+	
+	//Add categories as headers
+	for (var i=0; i<categories.length; i++) {
+		
+		var category = categories[i];
+		
+		var div_id = 'category_'+category.name;
+		
+		$( '#catalog' ).append( '<h2> <a href="#"> '+category.name+'</a></h2><ul id='+div_id+'></ul>' );
+			
+		var cdscells = category.cdscells;
+		
+		//Add the cells as list items
+		for (var j=0; j<cdscells.length; j++) {
+				var cdscell = cdscells[j];
+				$( '#'+div_id ).append( '<li id="'+cdscell.name+' ">' + cdscell.name + '</li>' );
 		}
 	}
     
@@ -167,6 +146,14 @@
 
     } // close deleteCell
     */
+    
+    /*
+     
+     UPDATE CELLS NEEDS TO BE REFACTORED. ipCell does not need to exist anymore and instead should use the category.
+     For now it seems to work OK because the order of ipCell matches each cdscell
+     
+     */
+    
     
     //*********************************************************************************************
     function updateCells() { 

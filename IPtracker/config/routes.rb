@@ -30,12 +30,14 @@ IPtracker::Application.routes.draw do
     collection do
       get 'track_json'
       get 'all_json'
+      get 'categorized_json'
     end
   end
+
   get '/cdscells/browse_show/:id', to: 'cdscells#browse_show'
 
   get '/users/categories_json', to: 'users#categories_json'
-  
+
   resource :static_pages do
     member do
       get :hello
