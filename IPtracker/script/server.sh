@@ -1,1 +1,1 @@
-bundle exec rails s
+bundle exec rails s &
