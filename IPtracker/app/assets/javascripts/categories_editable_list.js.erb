@@ -41,7 +41,8 @@ $(document).ready(function() {
 	        url: '/cdscells/'+cdscell_id+'/update_category',
 	        data: data,
 	        success: function(){ showFlash("Updated successfully",'alert-success'), alertTimeout(3000) },
-	        falure:  function(){ showFlash("Failed to update!"   ,'alert-failure'), alertTimeout(5000) }
+	        error:   function(){ showFlash("Failed to update! Category name can only contain letters and numbers.",
+	        					 'alert-failure'), alertTimeout(5000) }
     });
         
     });

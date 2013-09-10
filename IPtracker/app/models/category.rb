@@ -12,8 +12,8 @@ class Category < ActiveRecord::Base
   validates :user_id, presence: true
   validates :name,  presence: true, 
                     length: { maximum: 140 },
-                    uniqueness: { case_sensitive: true }
-                    
+                    format: { with: /\A\w+\Z/i, #Alphanumeric only
+                              message: "can only contain letters and numbers." }                 
                     
   def self.create_from_list(user,category_list)
     
@@ -24,6 +24,7 @@ class Category < ActiveRecord::Base
     category_names.each do |name|
       #Create the category if it does not already exist
       found_category = user.categories.find_by(name: name)
+
       if !found_category
         new_category = user.categories.build(name: name)
         new_category.save!

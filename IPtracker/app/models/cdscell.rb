@@ -52,7 +52,7 @@ class Cdscell < ActiveRecord::Base
     cell_categories.find_by(category_id: category.id)
   end
   def add_category!(category)
-    categories = self.categories.find_by(name: category.name)
+    categories = self.categories.find_by(id: category.id)
     cell_categories.create!(category_id: category.id) if !categories
   end
   def rm_category!(category)
@@ -64,7 +64,7 @@ class Cdscell < ActiveRecord::Base
     #Create the categories if the do not exist
     categories = Category.create_from_list(user,category_list)
   
-    #get the current categories assigned to the cell (for a give user)
+    #get the current categories assigned to the cell (for a given user)
     assigned_categories = self.categories & user.categories
     
     removed_categores = assigned_categories - categories    
@@ -73,7 +73,7 @@ class Cdscell < ActiveRecord::Base
     removed_categores.each do |category|
       self.rm_category!(category)
     end
-    
+
     #Tag cell with each category
     categories.each do |category|
       self.add_category!(category)

@@ -130,7 +130,7 @@ class CdscellsController < ApplicationController
       #redirect_to root_url if @micropost.nil?
     end
     def get_categories
-      @categories = @cdscell.categories
+      @categories = @cdscell.categories & current_user.categories
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
